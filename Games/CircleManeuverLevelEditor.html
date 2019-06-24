@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Circle Maneuver Level Editor</title>
+	<meta charset="utf-8">
+</head>
+<body onmousemove="getxymouse(event);" id="body" onload="resize()" onresize="resize()">
+<center>
+<canvas onmousedown="mouseDown()" id="game" width="640px" height="480px" style="border: 1px solid black;">Your browser does not support the canvas tag.</canvas>
+<p id='debug'></p>
+<input onclick="start('make');" value="Make a Level" id="button" type="button" style="
+font-size: 30px;
+position: absolute;
+top: 200px;
+-webkit-transform: translateX(-50%);
+transform: translateX(-50%);
+background-color: blue;
+border: none;
+color: black;
+text-decoration: none;
+display: inline-block;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+margin: 4px 2px;
+cursor: pointer;
+">
+<input onclick="start('play');" value="Play a Level" id="button2" type="button" style="
+font-size: 30px;
+position: absolute;
+top: 300px;
+-webkit-transform: translateX(-50%);
+transform: translateX(-50%);
+background-color: red;
+border: none;
+color: black;
+text-decoration: none;
+display: inline-block;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+margin: 4px 2px;
+cursor: pointer;
+">
+<input onclick="realPause();" src="https://static.wixstatic.com/media/319444_cbc11a4e34864d4b8e31bc51353e2a24~mv2.png" id="paus" type="image" style="
+border-radius: 100%;
+border: 2px white solid; 
+position: absolute;
+width: 50px;
+top: 25px;
+background-color: white;
+display: inline-block;
+cursor: pointer;
+visibility: hidden;
+">
+<select id="rectnumb" style="
+
+position: absolute;
+top: 25px;
+background-color: white;
+display: inline-block;
+visibility: hidden;
+">
+	<option value="Rectangle 1">Rectangle 1</option>
+	<option value="Rectangle 2">Rectangle 2</option>
+	<option value="Rectangle 3">Rectangle 3</option>
+	<option value="Rectangle 4">Rectangle 4</option>
+	<option value="Rectangle 5">Rectangle 5</option>
+	<option value="Rectangle 6">Rectangle 6</option>
+	<option value="Rectangle 7">Rectangle 7</option>
+	<option value="Rectangle 8">Rectangle 8</option>
+	<option value="Rectangle 9">Rectangle 9</option>
+	<option value="Rectangle 10">Rectangle 10</option>
+	<option value="Rectangle 11">Rectangle 11</option>
+	<option value="Rectangle 12">Rectangle 12</option>
+	<option value="Rectangle 13">Rectangle 13</option>
+	<option value="Rectangle 14">Rectangle 14</option>
+	<option value="Rectangle 15">Rectangle 15</option>
+</select>
+<select id="rectcol" style="
+position: absolute;
+top: 25px;
+background-color: white;
+display: inline-block;
+visibility: hidden;
+">
+	<option value="Red">Red</option>
+	<option value="Yellow">Yellow</option>
+	<option value="Light Blue">Light Blue</option>
+	<option value="Dark Blue">Dark Blue</option>
+	<option value="Gray">Gray</option>
+	<option value="Pink">Pink</option>
+	<option value="Purple">Purple</option>
+	<option value="Brown">Brown</option>
+	<option value="Green">Green</option>
+</select>
+<input placeholder="Please paste your level code here. (If you put an invalid code, the game will not work.)" type="text" id="enter" style="
+position: absolute;
+top: 75px;
+background-color: white;
+display: inline-block;
+visibility: hidden;
+">
+<button id="enterclick" onclick="actuallyenter();" style="
+position: absolute;
+top: 100px;
+background-color: white;
+display: inline-block;
+visibility: hidden;
+"></button>
+<img id="arrow" style="
+position: absolute;
+width: 50px;
+top: 25px;
+border: none;
+display: inline-block;
+visibility: hidden;
+" src="https://static.wixstatic.com/media/319444_396670c74029468d8cb9995049f8717b~mv2.png">
+<input value="Get Level Code" id="code" onclick="getCode();" type="button" style="
+visibility: hidden;
+position: absolute;
+top: 50px;
+border: none;
+color: black;
+text-decoration: none;
+display: inline-block;
+text-align: center;
+text-decoration: none;
+cursor: pointer;
+">
+<input value="Enter Level Code" id="entrcode" onclick="enterCode();pauseResume(true);" type="button" style="
+visibility: hidden;
+position: absolute;
+top: 50px;
+border: none;
+color: black;
+text-decoration: none;
+display: inline-block;
+text-align: center;
+text-decoration: none;
+cursor: pointer;
+">
+<audio onended="music('music1');" src="https://static.wixstatic.com/mp3/319444_cf42f16e717d4f1e9bdf70165b035e50.mp3" id="music1">Your browser does not support the audio tag.</audio>
+<audio src="https://static.wixstatic.com/mp3/319444_5af866b3ac814db89a3362db7d3a7bd2.mp3" id="music2">Your browser does not support the audio tag.</audio>
+<audio src="https://static.wixstatic.com/mp3/319444_a073d9e2c5134778a127cfeb253f84ca.mp3" id="music3">Your browser does not support the audio tag.</audio>
+<audio src="https://static.wixstatic.com/mp3/319444_6a6542e065f0421bb816f5bd00c7e101.mp3" id="music4">Your browser does not support the audio tag.</audio>
+<audio src="https://static.wixstatic.com/mp3/319444_23cf9664f16e4d94b9e4e2fb13a525bf.mp3" id="music5">Your browser does not support the audio tag.</audio>
+<audio src="https://static.wixstatic.com/mp3/319444_88a5946aab8642cb8a2242ea1c7cfda2.mp3" id="music6">Your browser does not support the audio tag.</audio>
+<audio src="https://static.wixstatic.com/mp3/319444_de7a74ccd520422684da73ee691af2ae.mp3" id="music7">Your browser does not support the audio tag.</audio>
+<audio src="https://static.wixstatic.com/mp3/319444_c719b99a36934803bbf321cecaa02492.mp3" id="music8">Your browser does not support the audio tag.</audio>
+<script type="text/javascript" src="CMlvledit.js"></script>
+<!-- <input type="range" min="1" max="50" style="width: 1000px;" value="1" id="debugSlide">
+<br>
+<input type="button" value="Reset Stuff" onclick="reset();"> -->
+</center>
+</body>
+</html>
