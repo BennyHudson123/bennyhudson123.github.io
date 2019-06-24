@@ -10,10 +10,7 @@
 			border-radius: 0;
 		}
 		html{
-			touch-action: manipulation;
-		}
-		body{
-			zoom: 0.5;
+			touch-action: pinch-zoom;
 		}
 		#leftctrl{
 			color: black;
@@ -36,6 +33,10 @@
 		canvas{
 			position: absolute;
 			top: 10px;
+			left: 0;
+			right: 0;
+			margin-left: auto;
+			margin-right: auto;
 		}
 		span{
 			font-size:150px;
@@ -291,10 +292,10 @@ function start(mode) {
 			setTimeout(function() {
 				pauseResume(false);
 				document.getElementById('paus').style.visibility = 'initial';
-				document.getElementById('paus').style.left = window.innerWidth - board.width / 2 + 50 + "px";
-				document.getElementById('arrow').style.left = window.innerWidth + board.width / 2 - 100 + "px";
-				document.getElementById("plus").style.left = window.innerWidth + board.width / 2 - 225 + "px"
-				document.getElementById("minus").style.left = window.innerWidth - board.width / 2 + 150 + "px"
+				document.getElementById('paus').style.left = screenwidth - board.width / 2 + 50 + "px";
+				document.getElementById('arrow').style.left = screenwidth + board.width / 2 - 100 + "px";
+				document.getElementById("plus").style.left = screenwidth + board.width / 2 - 225 + "px"
+				document.getElementById("minus").style.left = screenwidth - board.width / 2 + 150 + "px"
 			}, 2000);
 		level = levelAccom;
 		if (level == 50) {reset(); phase = 1;}
@@ -307,6 +308,8 @@ function start(mode) {
 }
 
 var level;
+
+resize()
 
 function canvasClicked() {
 	if (button != 0 && clicks != 10000) {
@@ -333,10 +336,10 @@ function canvasClicked() {
 			setTimeout(function() {
 				pauseResume(false);
 				document.getElementById('paus').style.visibility = 'initial';
-				document.getElementById('paus').style.left = window.innerWidth - board.width / 2 + 50 + "px";
-				document.getElementById('arrow').style.left = window.innerWidth + board.width / 2 - 100 + "px";
-				document.getElementById("plus").style.left = window.innerWidth + board.width / 2 - 225 + "px"
-				document.getElementById("minus").style.left = window.innerWidth - board.width / 2 + 150 + "px"
+				document.getElementById('paus').style.left = screenwidth - board.width / 2 + 50 + "px";
+				document.getElementById('arrow').style.left = screenwidth + board.width / 2 - 100 + "px";
+				document.getElementById("plus").style.left = screenwidth + board.width / 2 - 225 + "px"
+				document.getElementById("minus").style.left = screenwidth - board.width / 2 + 150 + "px"
 			}, 2000);
 		}
 	}
@@ -1343,11 +1346,11 @@ function realPause() {
 			document.getElementById("plus").style.visibility = "visible";
 			document.getElementById("minus").style.visibility = "visible";
 			button.style.visibility = "visible";
-			if (b1l == undefined) {b1l = window.innerWidth - 200 + "px"}
+			if (b1l == undefined) {b1l = screenwidth - 200 + "px"}
 			button.style.left = b1l;
 			button.style.top = 275 + "px";
 			button.style.visibility = "visible";
-			if (b2l == undefined) {b2l = window.innerWidth + 200 + "px"}
+			if (b2l == undefined) {b2l = screenwidth + 200 + "px"}
 			button2.style.left = b2l;
 			button2.style.top = 275 + "px";
 			button2.style.visibility = "visible";
@@ -1368,26 +1371,47 @@ document.addEventListener("resize", resize);
 
 resize();
 
+if (mobile() == true) {
+	var screenwidth = window.innerWidth * 2;
+	document.getElementById("body").style.zoom = 0.25;
+}
+else {
+	var screenwidth = window.innerWidth / 2;
+	document.getElementById("body").style.zoom = 1;
+}
+
 function resize() {
-    board.style.left = window.innerWidth - board.width / 2 + "px";
-    document.getElementById("leftctrl").style.left = window.innerWidth - board.width / 2 - 200 + "px";
-    document.getElementById("rightctrl").style.right = window.innerWidth - board.width / 2 - 200 + "px";
-	document.getElementById('paus').style.left = window.innerWidth - board.width / 2 + 50 + "px";
-	document.getElementById('arrow').style.left = window.innerWidth + board.width / 2 - 100 + "px";
-	document.getElementById("plus").style.left = window.innerWidth + board.width / 2 - 225 + "px";
-	document.getElementById("minus").style.left = window.innerWidth - board.width / 2 + 150 + "px";
-	document.getElementById("colorSelect").style.left = window.innerWidth;
+	if (mobile() == true) {
+	var screenwidth = window.innerWidth * 2;
+	document.getElementById("body").style.zoom = 0.25;
+	}
+	else {
+	var screenwidth = window.innerWidth / 2;
+	document.getElementById("body").style.zoom = 1;
+	}
+	//board.style.left = screenwidth - board.width / 2 + "px";
+    document.getElementById("leftctrl").style.left = screenwidth - board.width / 2 - 200 + "px";
+    document.getElementById("rightctrl").style.right = screenwidth - board.width / 2 - 200 + "px";
+	document.getElementById('paus').style.left = screenwidth - board.width / 2 + 50 + "px";
+	document.getElementById('arrow').style.left = screenwidth + board.width / 2 - 100 + "px";
+	document.getElementById("plus").style.left = screenwidth + board.width / 2 - 225 + "px";
+	document.getElementById("minus").style.left = screenwidth - board.width / 2 + 150 + "px";
+	document.getElementById("colorSelect").style.left = screenwidth;
+	button = document.getElementById("button");
+	button2 = document.getElementById("button2");
 	if (level != undefined) {
-		button = document.getElementById("button");
-		button2 = document.getElementById("button2");
-		b1l = window.innerWidth - 200 + "px";
-		b2l = window.innerWidth + 200 + "px";
+		b1l = screenwidth - 200 + "px";
+		b2l = screenwidth + 200 + "px";
 		button.style.left = b1l;
 		if (phase != 6) {button.style.top = 275 + "px";}
 		else {button.style.top = 50 + "px"}
 		button2.style.left = b2l;
 		if (phase != 6) {button2.style.top = 275 + "px";}
 		else {button2.style.top = 50 + "px"}
+	}
+	else {
+		button.style.left = screenwidth - button.width / 2
+		button2.style.left = screenwidth - button2.width / 2
 	}
 }
 
