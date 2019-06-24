@@ -2,16 +2,37 @@
 <html>
 	<head>
 		<title>Ben Pitt Stoller Projects</title>
-		<style type="text/css"></style>
+		<style type="text/css">
+			.column {
+				float: left;
+				width: 50%;
+			}
+			.row:after {
+				content: "";
+				display: table;
+				clear: both;
+			}
+		</style>
 	</head>
 	<body>
-		<center style="font-weight: default;">
+		<center>
 			<h1>Hi, I'm Ben Pitt Stoller.</h1>
 			<h2>I like to project, so here's some of those.</h2>
 		</center>
-		<p>Video Games</p>
-		<ul>
-			<li><a href="CircleManeuver.html" style="color: blue;">Circle Maneuver</a></li>
-		</ul>
+			<div class="row">
+				<div class="column">
+					<h3>Video Games</h3>
+					<ul>
+						<li><a href="CircleManeuver.html">Circle Maneuver</a></li>
+					</ul>
+				</div>
+				<div class="column">
+					<h3>Misc.</h3>
+					<ul>
+						<li><a href="LargeNumbers.html">Large Number Name Generator</li>
+						<li><a href="ManySidedShapes.html">Many Sided Shape Name Generator</li>
+					</ul>
+				</div>
+			</div>
 	</body>
 </html>
