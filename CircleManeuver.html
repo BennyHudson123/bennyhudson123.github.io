@@ -3,14 +3,14 @@
 <head>
 	<title>Circle Maneuver</title>
 	<meta charset="utf-8">
-	<meta name="viewport" content="initial-scale=0.25">
+	<meta name="viewport" content="initial-scale=0.3">
 	<style>
 		input{
 			-webkit-appearance: none;
 			border-radius: 0;
 		}
 		html{
-			touch-action: minimal;
+			touch-action: manipulation;
 		}
 /*		body{
 			zoom: 0.25;
@@ -22,7 +22,6 @@
 			background-color: blue;
 			position: absolute;
 			top: 240px;
-			left: -10px;
 			opacity: 0.5;
 		}
 		#rightctrl{
@@ -32,7 +31,6 @@
 			background-color: blue;
 			position: absolute;
 			top: 240px;
-			right: -10px;
 			opacity: 0.5;    
 		}
 		canvas{
@@ -1372,8 +1370,8 @@ resize();
 
 function resize() {
     board.style.left = window.innerWidth / 2 - board.width / 2 + "px";
-    document.getElementById("leftctrl").style.left = "0px";
-    document.getElementById("rightctrl").style.right = "0px";
+    document.getElementById("leftctrl").style.left = window.innerWidth / 2 - board.width / 2 - 100 + "px";
+    document.getElementById("rightctrl").style.right = window.innerWidth / 2 - board.width / 2 - 100 + "px";
 	document.getElementById('paus').style.left = window.innerWidth / 2 - board.width / 2 + 50 + "px";
 	document.getElementById('arrow').style.left = window.innerWidth / 2 + board.width / 2 - 100 + "px";
 	document.getElementById("plus").style.left = window.innerWidth / 2 + board.width / 2 - 225 + "px";
