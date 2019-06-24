@@ -13,7 +13,7 @@
 			touch-action: manipulation;
 		}
 		body{
-			zoom: 0.25;
+			zoom: 0.5;
 		}
 		#leftctrl{
 			color: black;
@@ -291,10 +291,10 @@ function start(mode) {
 			setTimeout(function() {
 				pauseResume(false);
 				document.getElementById('paus').style.visibility = 'initial';
-				document.getElementById('paus').style.left = window.innerWidth * 2 - board.width / 2 + 50 + "px";
-				document.getElementById('arrow').style.left = window.innerWidth * 2 + board.width / 2 - 100 + "px";
-				document.getElementById("plus").style.left = window.innerWidth * 2 + board.width / 2 - 225 + "px"
-				document.getElementById("minus").style.left = window.innerWidth * 2 - board.width / 2 + 150 + "px"
+				document.getElementById('paus').style.left = window.innerWidth - board.width / 2 + 50 + "px";
+				document.getElementById('arrow').style.left = window.innerWidth + board.width / 2 - 100 + "px";
+				document.getElementById("plus").style.left = window.innerWidth + board.width / 2 - 225 + "px"
+				document.getElementById("minus").style.left = window.innerWidth - board.width / 2 + 150 + "px"
 			}, 2000);
 		level = levelAccom;
 		if (level == 50) {reset(); phase = 1;}
@@ -333,10 +333,10 @@ function canvasClicked() {
 			setTimeout(function() {
 				pauseResume(false);
 				document.getElementById('paus').style.visibility = 'initial';
-				document.getElementById('paus').style.left = window.innerWidth * 2 - board.width / 2 + 50 + "px";
-				document.getElementById('arrow').style.left = window.innerWidth * 2 + board.width / 2 - 100 + "px";
-				document.getElementById("plus").style.left = window.innerWidth * 2 + board.width / 2 - 225 + "px"
-				document.getElementById("minus").style.left = window.innerWidth * 2 - board.width / 2 + 150 + "px"
+				document.getElementById('paus').style.left = window.innerWidth - board.width / 2 + 50 + "px";
+				document.getElementById('arrow').style.left = window.innerWidth + board.width / 2 - 100 + "px";
+				document.getElementById("plus").style.left = window.innerWidth + board.width / 2 - 225 + "px"
+				document.getElementById("minus").style.left = window.innerWidth - board.width / 2 + 150 + "px"
 			}, 2000);
 		}
 	}
@@ -1343,11 +1343,11 @@ function realPause() {
 			document.getElementById("plus").style.visibility = "visible";
 			document.getElementById("minus").style.visibility = "visible";
 			button.style.visibility = "visible";
-			if (b1l == undefined) {b1l = window.innerWidth * 2 - 200 + "px"}
+			if (b1l == undefined) {b1l = window.innerWidth - 200 + "px"}
 			button.style.left = b1l;
 			button.style.top = 275 + "px";
 			button.style.visibility = "visible";
-			if (b2l == undefined) {b2l = window.innerWidth * 2 + 200 + "px"}
+			if (b2l == undefined) {b2l = window.innerWidth + 200 + "px"}
 			button2.style.left = b2l;
 			button2.style.top = 275 + "px";
 			button2.style.visibility = "visible";
@@ -1369,19 +1369,19 @@ document.addEventListener("resize", resize);
 resize();
 
 function resize() {
-    board.style.left = window.innerWidth * 2 - board.width / 2 + "px";
-    document.getElementById("leftctrl").style.left = window.innerWidth * 2 - board.width / 2 - 100 + "px";
-    document.getElementById("rightctrl").style.right = window.innerWidth * 2 - board.width / 2 - 100 + "px";
-	document.getElementById('paus').style.left = window.innerWidth * 2 - board.width / 2 + 50 + "px";
-	document.getElementById('arrow').style.left = window.innerWidth * 2 + board.width / 2 - 100 + "px";
-	document.getElementById("plus").style.left = window.innerWidth * 2 + board.width / 2 - 225 + "px";
-	document.getElementById("minus").style.left = window.innerWidth * 2 - board.width / 2 + 150 + "px";
-	document.getElementById("colorSelect").style.left = window.innerWidth * 2;
+    board.style.left = window.innerWidth - board.width / 2 + "px";
+    document.getElementById("leftctrl").style.left = window.innerWidth - board.width / 2 - 200 + "px";
+    document.getElementById("rightctrl").style.right = window.innerWidth - board.width / 2 - 200 + "px";
+	document.getElementById('paus').style.left = window.innerWidth - board.width / 2 + 50 + "px";
+	document.getElementById('arrow').style.left = window.innerWidth + board.width / 2 - 100 + "px";
+	document.getElementById("plus").style.left = window.innerWidth + board.width / 2 - 225 + "px";
+	document.getElementById("minus").style.left = window.innerWidth - board.width / 2 + 150 + "px";
+	document.getElementById("colorSelect").style.left = window.innerWidth;
 	if (level != undefined) {
 		button = document.getElementById("button");
 		button2 = document.getElementById("button2");
-		b1l = window.innerWidth * 2 - 200 + "px";
-		b2l = window.innerWidth * 2 + 200 + "px";
+		b1l = window.innerWidth - 200 + "px";
+		b2l = window.innerWidth + 200 + "px";
 		button.style.left = b1l;
 		if (phase != 6) {button.style.top = 275 + "px";}
 		else {button.style.top = 50 + "px"}
@@ -1482,11 +1482,11 @@ function endGame() {
 		// 	ttl.font = "25px Times New Roman";
 		// 	ttl.fillText("You have now unlocked invisible mode!", board.width / 2, board.height - 75)
 		// 	ttl.fillText("(go in the pause menu to enable it)", board.width / 2, board.height - 50)
-			// if (b1l == undefined) {b1l = window.innerWidth * 2 - 200 + "px"}
+			// if (b1l == undefined) {b1l = window.innerWidth - 200 + "px"}
 			// button.style.left = b1l;
 			// button.style.top = 50 + "px";
 			// button.style.visibility = "visible";
-			// if (b2l == undefined) {b2l = window.innerWidth * 2 + 200 + "px"}
+			// if (b2l == undefined) {b2l = window.innerWidth + 200 + "px"}
 			// button2.style.left = b2l;
 			// button2.style.top = 50 + "px";
 			// button2.style.visibility = "visible";
