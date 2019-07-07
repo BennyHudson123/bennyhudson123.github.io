@@ -4,10 +4,11 @@
     <link rel="icon" type="image/png" href="../favicon-16x16.png" sizes="16x16" />
     <meta name="viewport" content="width=device-width">
     <script>
+      var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);;
      function createWord() {
      if (document.getElementById("p").innerHTML == "Calculating...") {return;}
     document.getElementById("p").innerHTML = "Calculating...";
-    navigator.vibrate([1000]);
+    if (iOS == false) {navigator.vibrate([1000])};
     setTimeout(function () {
   var rng = Math.floor(Math.random() * 5) ;
   var letters = Math.floor(Math.random() * 2) + 1;
