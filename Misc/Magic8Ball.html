@@ -1,0 +1,100 @@
+<html>
+<head>
+    <link rel="icon" type="image/png" href="../favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="../favicon-16x16.png" sizes="16x16" />
+    <meta name="viewport" content="width=device-width">
+    <script>
+     function createWord() {
+     if (document.getElementById("p").innerHTML == "Calculating...") {return;}
+    document.getElementById("p").innerHTML = "Calculating...";
+    navigator.vibrate([1000]);
+    setTimeout(function () {
+  var rng = Math.floor(Math.random() * 5) ;
+  var letters = Math.floor(Math.random() * 2) + 1;
+  var word = [];
+  for (i = 0; i <= letters; i++) {
+  rng = Math.floor(Math.random() * 13) ;
+  if (Math.floor(Math.random() * word.length * 3) == 0 && word.length < 6 && false) {letters++}
+  switch (rng) {
+    case 0:
+    word.push("n")
+    break;
+    case 1:
+    word.push("o")
+    break;
+    case 2:
+    word.push("y")
+    break;
+    case 3:
+    word.push("e")
+    break;
+    case 4:
+    word.push("s")
+    break;
+    case 5:
+    word.push("N")
+    break;
+    case 6:
+    word.push("O")
+    break;
+    case 7:
+    word.push("Y")
+    break;
+    case 8:
+    word.push("E")
+    break;
+    case 9:
+    word.push("S")
+    break;
+    case 10:
+    word.push("Ye")
+    break;
+    case 11:
+    word.push("es")
+    break;
+    case 12:
+    word.push("No")
+    break;
+  }}
+  document.getElementById("p").innerHTML = word.join("");
+  }, 1000)
+}
+    </script>
+    <style>
+    body{
+      background-color: white;
+    }
+.container {
+width: 385;
+height: 299;
+  position: absolute;
+  transform: scale(1.2);
+}
+#p{
+  cursor: default;
+  font-family: helvetica;
+  color: white;
+  opacity: 0.5;
+  transform: scale(0.8);
+  text-align: center;
+  position: static;
+  margin-top: -175px;
+}
+img{
+  cursor: pointer;
+}
+    </style>
+    <title>The Ultimate Magic 8 Ball</title>
+</head>
+
+<body>
+<a href="../index.html" style="cursor: pointer;"><img style="position: absolute; top: 10px; right: 10px; height: 50px; width: 50px;" src="../home.svg"></a>
+<p>Concentrate on a yes or no question, close your eyes, then click the ball for your answer.</p>
+<br>
+<br>
+<div class="container" id="ball">
+<img onclick="createWord()" src="1c8tfl.jpg">
+<p id="p" class="center">Magic 8 Ball</p>
+</div>
+</body>
+</html>
