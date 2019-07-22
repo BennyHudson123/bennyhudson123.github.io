@@ -281,7 +281,7 @@ var button = 0
 var gloMode;
 
 function start(mode) {
-	if (localStorage.CircleManeuver == "null") {localStorage.CircleManeuver = 1}
+	if (localStorage.CircleManeuver == "null" || localStorage.CircleManeuver == undefined) {localStorage.CircleManeuver = 1}
 	if (mode == "easy") {gloMode = "e";}
 	else {gloMode = "h";}
 	button = document.getElementById("button");
