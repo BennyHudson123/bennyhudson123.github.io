@@ -20,7 +20,7 @@ function calculate() {
 	if (Number.isInteger(Number(num.value)) && num.value != "" && Number(num.value) >= 0 && Number(num.value) <= 3003) {}
 	else if (Number(num.value) > 3003) {
 		p = document.getElementById("p1");
-		p.innerHTML = "You have entered a stupidly large number.";
+		p.innerHTML = "You have entered an unnamed number.";
 		p = document.getElementById("p0");
 		p.innerHTML = "Scroll down for some information about larger numbers:"
 		p = document.getElementById("p2");

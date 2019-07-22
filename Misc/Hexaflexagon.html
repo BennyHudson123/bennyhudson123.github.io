@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hexaflexagon Generator</title>
+		<link rel="icon" type="image/png" href="../favicon-32x32.png" sizes="32x32" />
+		<link rel="icon" type="image/png" href="../favicon-16x16.png" sizes="16x16" />
+	<script type="text/javascript">
+	function draw() {
+		var canvas = document.getElementById("canvas");
+		canvas.width = canvas.width;
+		var ctx = canvas.getContext("2d");
+		ctx.strokeStyle = document.getElementById('otln').value;
+		ctx.fillStyle = "white";
+		ctx.scale(1.5, 1.5)
+		ctx.translate(20, 0)
+		var tris = [];
+		function getColor(i, row) {
+			if (row == 1) {
+				if (i == 5 || i == 6) {ctx.fillStyle = document.getElementById("hex1color").value;}
+				else if (i == 3 || i == 4 || i == 9) {ctx.fillStyle = document.getElementById("hex2color").value;}
+				else if (i == 1 || i == 2 || i == 7 || i == 8) {ctx.fillStyle = document.getElementById("hex3color").value;}
+				else {ctx.fillStyle = "white";}
+			}
+			else {
+				if (i == 2 || i == 3 || i == 8 || i == 9) {ctx.fillStyle = document.getElementById("hex1color").value;}
+				else if (i == 1 || i == 6 || i == 7) {ctx.fillStyle = document.getElementById("hex2color").value;}
+				else if (i == 4 || i == 5) {ctx.fillStyle = document.getElementById("hex3color").value;}
+				else {ctx.fillStyle = "white";}
+			}
+		}
+		for (var i = 1; i <= 9; i += 1) {
+			getColor(i, 1);
+			triangle(i * 50, 100, 50);
+			i++
+			getColor(i, 1);
+			invtri(i * 50, 100, 50);
+		}
+		for (var i = 1; i <= 9; i += 1) {
+			getColor(i, 2);
+			invtri(i * 50, 187, 50);
+			i++
+			if (i >= 9) {break;}
+			getColor(i, 2);
+			triangle(i * 50, 187, 50);
+		}
+		var initvalues = []
+		for (var i = 0; i < 18; i++) {
+			initvalues.push(inps[i].value)
+		}
+		var words = [initvalues[13], initvalues[12], initvalues[7], initvalues[6], initvalues[0], initvalues[1], initvalues[15], initvalues[14], initvalues[9], "GLUE", initvalues[8], initvalues[2], initvalues[3], initvalues[17], initvalues[16], initvalues[11], initvalues[10], initvalues[4], initvalues[5]]
+		ctx.fillStyle = document.getElementById('txtclr').value;
+		for (var i = 0; i < 19; i++) {
+			switch(i) {
+				case 1:
+				case 3:
+				case 7:
+				case 10:
+				case 14:
+				case 16:
+				var deg = 0.75;
+				break;
+				case 0:
+				case 2:
+				case 6:
+				case 8:
+				case 13:
+				case 15:
+				var deg = 1;
+				break;
+				case 4:
+				case 11:
+				case 17:
+				var deg = 1.75;
+				break;
+				default:
+				var deg = 0;
+				break;
+			}
+			if (i % 2 == 0 && i < 10 || i > 10 && i % 2 == 1) {
+				word(words[i], tris[i * 2], tris[(i * 2) + 1] + 10, deg);
+			}
+			else {
+				word(words[i], tris[i * 2], tris[(i * 2) + 1] - 10, deg);
+			}
+		}
+		function triangle(x, y, s) {
+			tris.push(x);
+			tris.push(y);
+			var h = s * (Math.sqrt(3)/2);
+			ctx.beginPath();
+			ctx.moveTo(x, y - h);
+			ctx.lineTo(x - s, y + h);
+			ctx.lineTo(x + s, y + h);
+			ctx.lineTo(x, y - h);
+			ctx.stroke();
+			ctx.fill();
+		}
+		function invtri(x, y, s) {
+			tris.push(x);
+			tris.push(y);
+			var h = s * (Math.sqrt(3)/2);
+			ctx.beginPath();
+			ctx.moveTo(x, y + h);
+			ctx.lineTo(x + s, y - h);
+			ctx.lineTo(x - s, y - h);
+			ctx.lineTo(x, y + h);
+			ctx.stroke();
+			ctx.fill();
+		}
+		function word(word, x, y, d) {
+			ctx.save();
+			ctx.translate(x, y);
+			ctx.rotate(d * Math.PI);
+			ctx.font = "15px Times New Roman";
+			ctx.textBaseline = "middle";
+			ctx.textAlign = "center";
+			ctx.fillText(word, 0, 0);
+			ctx.restore();
+		}
+	}
+	function load() {
+		var classname = document.getElementsByClassName("words");
+		for (var i = 0; i < classname.length; i++) {
+		classname[i].addEventListener('input', draw, false);
+		}
+		var button = document.getElementById('btn-download');
+		button.addEventListener('contextmenu', function (e) {
+		var dataURL = canvas.toDataURL('image/png');
+		button.href = dataURL;
+		});
+		var hex = document.getElementById("hex");
+		var hexctx = hex.getContext("2d");
+		var side = 0, size = 100, hexx = 100, hexy = 100;
+		for (var i = 0; i < 3; i++) {
+			hexctx.beginPath();
+			hexctx.moveTo(hexx + size * Math.cos(0), hexy + size * Math.sin(0));
+			for (side; side < 7; side++) {
+				hexctx.lineTo(hexx + size * Math.cos(side * 2 * Math.PI / 6), hexy + size * Math.sin(side * 2 * Math.PI / 6));
+			}
+			side = 0;
+			hexctx.stroke();
+			hexx += 250;
+		}
+	}
+	var inps = document.getElementsByClassName("words");
+	function hexinps() {
+		for (var i = 0; i <= inps.length - 1; i++) {
+			inps[i].style.position = "absolute";
+			inps[i].style.width = "50px";
+			inps[i].maxLength = "10";
+		}
+		for (var i = 0; i < 3; i++) {
+			var j = i * 6;
+			var k = i * 250;
+			inps[0 + j].style.top = 30 + "px";
+			inps[1 + j].style.top = 75 + "px";
+			inps[2 + j].style.top = 75 + "px";
+			inps[3 + j].style.top = 125 + "px";
+			inps[4 + j].style.top = 125 + "px";
+			inps[5 + j].style.top = 170 + "px";
+			inps[0 + j].style.left = 375 + k + "px";
+			inps[1 + j].style.left = 325 + k + "px";
+			inps[2 + j].style.left = 420 + k + "px";
+			inps[3 + j].style.left = 420 + k + "px";
+			inps[4 + j].style.left = 325 + k + "px";
+			inps[5 + j].style.left = 375 + k + "px";
+		}
+	}
+</script>
+<style type="text/css">
+	span{
+		margin-right: 25px;
+	}
+	#hex{
+		position: absolute;
+		top: 10px;
+		left: 300px;
+	}
+	.words{
+		text-align: center;
+	}
+	#hex1color{
+		width: 30px;
+		position: absolute;
+		left: 385px;
+		top: 210px;
+	}
+	#hex2color{
+		width: 30px;
+		position: absolute;
+		left: 635px;
+		top: 210px;
+	}
+	#hex3color{
+		width: 30px;
+		position: absolute;
+		left: 885px;
+		top: 210px;
+	}
+	#link{
+		margin-left: 750px;
+	}
+</style>
+</head>
+<body onload="load(); draw(); hexinps();">
+	<a href="../index.html" style="cursor: pointer;"><img style="position: absolute; top: 10px; right: 10px; height: 50px; width: 50px;" src="../home.svg"></a>
+	<label><span>Outline Color:</span><input type="color" onchange="draw()" id="otln" value="#000000"></label><br><br>
+<br><br>
+	<label><span>Text Color:</span><input type="color" onchange="draw()" id="txtclr" value="#000000"></label><br><br>
+	<canvas id="hex" width="1000" height="250"></canvas>
+	<input type="text" class="words"><input type="text" class="words"><input type="text" class="words"><input type="text" class="words"><input type="text" class="words"><input type="text" class="words">
+	<input type="text" class="words"><input type="text" class="words"><input type="text" class="words"><input type="text" class="words"><input type="text" class="words"><input type="text" class="words">
+	<input type="text" class="words"><input type="text" class="words"><input type="text" class="words"><input type="text" class="words"><input type="text" class="words"><input type="text" class="words">
+	<input type="color" id="hex1color" value="#FFFFFF" onchange="draw();"><input type="color" id="hex2color" value="#FFFFFF" onchange="draw();"><input type="color" id="hex3color" value="#FFFFFF" onchange="draw();">
+	<br><br><br><br><br><br>
+	<canvas width="1000" height="400" id="canvas" style="border: 1px black solid;"></canvas>
+	<br>
+	<a class="button" href="" id="btn-download">Right-Click me and then click "Open link in new tab" to view the image!</a>
+	<a href="http://vihart.com/hexaflexagons" id="link">Click on me to learn about hexaflexagons!</a>
+</body>
+</html>
