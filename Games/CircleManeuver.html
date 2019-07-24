@@ -153,6 +153,20 @@ display: inline-block;
 visibility: hidden;
 cursor: pointer;
 ">
+<input type="button" id="resetprg" value="Reset Progress" onclick="if (confirm('Are you sure you want to reset your progress?')) {localStorage.CircleManeuver = 1}" style="
+width: 120px;
+height: 50px;
+color: black;
+background-color: white;
+border-radius: 100%;
+position: absolute;
+top: 150px;
+border: 1px solid black;
+text-decoration: none;
+display: inline-block;
+visibility: hidden;
+cursor: pointer;
+">
 <img id="s1" style="display: none;" src="https://static.wixstatic.com/media/319444_856dcfd87e3640f4b345653dc38cef96~mv2.png">
 <img id="s2" style="display: none;" src="https://static.wixstatic.com/shapes/319444_25431754208c45aea5a48e28ffbe6aa9.svg">
 <img id="s3" style="display: none;" src="https://static.wixstatic.com/shapes/319444_1226f118058941dea24cab3608fe2758.svg">
@@ -302,7 +316,6 @@ function start(mode) {
 			}
 			else if (localStorage.CircleManeuver <= 20) {
 				audioFade("music2")
-				fakePause = true;
 				pauseResume(true);
 				board.style.backgroundColor = "black";
 				ttl.font = "40px Arial";
@@ -314,7 +327,6 @@ function start(mode) {
 			}
 			else if (localStorage.CircleManeuver <= 30) {
 				audioFade("music3")
-				fakePause = true;
 				pauseResume(true);
 				board.style.backgroundColor = "#ff8c00";
 				ttl.font = "40px Arial";
@@ -326,7 +338,6 @@ function start(mode) {
 			}
 			else if (localStorage.CircleManeuver <= 40) {
 				audioFade("music4")
-				fakePause = true;
 				pauseResume(true);
 				board.style.backgroundColor = "lightcyan";
 				ttl.font = "40px Arial";
@@ -336,9 +347,20 @@ function start(mode) {
 				setTimeout("ttl.fillStyle = 'black';", frameRate + 1)
 				setTimeout("ttl.fillText('Now entering the planet Howihee', board.width / 2, board.height / 2);", frameRate + 1)
 			}
+			else if (localStorage.CircleManeuver == 50) {
+				phase = 1;
+				audioFade("music6")
+				pauseResume(true);
+				board.style.backgroundColor = "green";
+				ttl.font = "40px Arial";
+				ttl.textAlign = "center";
+				ttl.fillStyle = "black";
+				setTimeout("crl.clearRect(0, 0, board.width, board.height)", frameRate + 1)
+				setTimeout("ttl.fillStyle = 'black';", frameRate + 1)
+				setTimeout("ttl.fillText('Now entering the Final Challenge', board.width / 2, board.height / 2);", frameRate + 1)
+			}
 			else if (localStorage.CircleManeuver <= 50) {
 				audioFade("music5")
-				fakePause = true;
 				pauseResume(true);
 				board.style.backgroundColor = "green";
 				ttl.font = "40px Arial";
@@ -347,18 +369,6 @@ function start(mode) {
 				setTimeout("crl.clearRect(0, 0, board.width, board.height)", frameRate + 1)
 				setTimeout("ttl.fillStyle = 'black';", frameRate + 1)
 				setTimeout("ttl.fillText('Now entering the planet Oru', board.width / 2, board.height / 2);", frameRate + 1)
-			}
-			else if (localStorage.CircleManeuver == 50) {
-				phase = 1;
-				audioFade("music6")
-				fakePause = true;
-				pauseResume(true);
-				ttl.font = "40px Arial";
-				ttl.textAlign = "center";
-				ttl.fillStyle = "black";
-				setTimeout("crl.clearRect(0, 0, board.width, board.height)", frameRate + 1)
-				setTimeout("ttl.fillStyle = 'black';", frameRate + 1)
-				setTimeout("ttl.fillText('Now entering the Final Challenge', board.width / 2, board.height / 2);", frameRate + 1)
 			}
 			setTimeout(function() {
 				pauseResume(false);
@@ -1392,6 +1402,7 @@ var b2l;
 function realPause() {
 	if (fakePause == false) {
 		if (pButton == false) {
+			resize()
 			board.style.backgroundColor = "white"
 			pButton = true;
 			pauseResume(true);
@@ -1415,6 +1426,7 @@ function realPause() {
 			ttl.fill();
 			document.getElementById("plus").style.visibility = "visible";
 			document.getElementById("minus").style.visibility = "visible";
+			document.getElementById("resetprg").style.visibility = "visible";
 			button.style.visibility = "visible";
 			if (b1l == undefined) {b1l = screenwidth - 200 + "px"}
 			button.style.left = b1l;
@@ -1455,6 +1467,8 @@ function resize() {
     document.getElementById("rightctrl").style.right = screenwidth - board.width / 2 - 200 + "px";
 	document.getElementById('paus').style.left = screenwidth - board.width / 2 + 50 + "px";
 	document.getElementById('arrow').style.left = screenwidth + board.width / 2 - 100 + "px";
+	document.getElementById('resetprg').style.left = screenwidth + board.width / 2 - 150 + "px";
+	document.getElementById('resetprg').style.top = "80px";
 	document.getElementById("plus").style.left = screenwidth + board.width / 2 - 225 + "px";
 	document.getElementById("minus").style.left = screenwidth - board.width / 2 + 150 + "px";
 	document.getElementById("colorSelect").style.left = screenwidth;
