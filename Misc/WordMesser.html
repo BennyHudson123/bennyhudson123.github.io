@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="icon" type="image/png" href="../favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="../favicon-16x16.png" sizes="16x16" />
+	<meta name="viewport" content="width=device-width">
+	<meta charset='utf-8'>
+</head>
+<body>
+<a href="../index.html" style="cursor: pointer;"><img style="position: absolute; top: 10px; right: 10px; height: 50px; width: 50px;" src="../home.svg"></a>
+<input style="position: absolute; top: 10px; left: 10px;" type="button" value="Copy Text" onclick="
+	if (confirm('Click &quot;OK&quot; to copy the text.')) {
+		var copyText = document.getElementById('output');
+		copyText.select();
+		copyText.setSelectionRange(0, 99999);
+		document.execCommand('copy');
+	}
+">
+<br><br><br>
+<textarea placeholder="Type Here!" spellcheck="false" oninput="editText();" id='output'></textarea>
+</body>
+<style type='text/css'>
+	html, body{
+		margin: 0;
+		height: 100%;
+		overflow: hidden;
+	}
+	textarea{
+		width: 100%;
+		height: 100%;
+		resize: none;
+		border: none;
+		overflow: hidden;
+		font-family: times_new_roman;
+		font-size: 24px;
+	}
+	textarea:focus{
+		outline: none;
+	}
+</style>
+<script type='text/javascript'>
+	Array.prototype.random = function () {
+		return this[Math.floor(Math.random() * this.length)]
+	}
+	var letters = {
+		"A":['À','Á','Â','Ã','Ä','Å','Ā','Ă','Ą','Ǎ','Ǟ','Ǡ','Ǻ','Ȁ','Ȃ','Ȧ','Ⱥ','Ɐ','Ɒ','Ɑ'],
+		"B":['Ƀ','Ɓ','Ƃ','Ƀ'],
+		"C":['Ç','Ć','Ĉ','Ċ','Č','Ƈ','Ɔ','Ȼ'],
+		"D":['Ď','Đ','Ɖ','Ɗ','Ƌ'],
+		"E":['È','É','Ê','Ë','Ē','Ĕ','Ė','Ę','Ě','Ǝ','Ə','Ɛ','Ȅ','Ȇ','Ȩ','Ɇ','Ɜ'],
+		"F":['Ƒ','Ḟ','Ꞙ'],
+		"G":['Ĝ','Ğ','Ġ','Ģ','Ɠ','Ǥ','Ǧ','Ǵ'],
+		"H":['Ĥ','Ħ','Ȟ','Ɥ','Ɦ','ʮ','ʯ'],
+		"I":['Ì','Í','Î','Ï','Ĩ','Ī','Ĭ','Į','speciali','Ɨ','Ǐ','Ȉ','Ȋ'],
+		"J":['Ĵ','ȷ','Ɉ','ɟ','Ʝ'],
+		"K":['Ķ','ĸ','Ƙ','Ǩ','Ʞ'],
+		"L":['Ĺ','Ļ','Ľ','Ŀ','Ł','Ƚ','Ƚ','Ɫ','Ɬ','ɭ'],
+		"M":["Ɯ",'Ɱ','Ḿ','Ṁ','Ṃ','M̃'],
+		"N":['Ñ','Ń','Ņ','Ŋ','Ɲ','Ƞ','Ǹ','Ɲ','ɳ'],
+		"O":['Ò','Ó','Ô','Õ','Ö','Ø','Ō','Ŏ','Ő','Ɵ','Ơ','Ǒ','Ǫ','Ǭ','Ǿ','Ȍ','Ȏ','Ȫ','Ȭ','Ȯ','Ȱ'],
+		"P":['Ƥ','Ṕ','Ṗ','Ᵽ'],
+		"Q":['Ɋ','ʠ','Q̃','Ꝗ','Ꝙ'],
+		"R":['Ŕ','Ŗ','Ř','Ȑ','Ȓ','Ɍ','ɹ','ɺ','ɻ','ɼ','Ɽ','ɾ','ɿ'],
+		"S":['Ś','Ŝ','Ş','Š','Ș','Ȿ'],
+		"T":['Ţ','Ť','Ŧ','ƫ','Ƭ','Ʈ','Ț','Ⱦ','Ʇ'],
+		"U":['Ù','Ú','Û','Ü','Ũ','Ū','Ŭ','Ů','Ű','Ų','Ư','Ǔ','Ǖ','Ǘ','Ǚ','Ǜ','Ȕ','Ȗ','Ʉ'],
+		"V":['Ʋ','Ʌ','Ṽ','Ṿ','ᶌ'],
+		"W":['Ŵ','ʍ','Ẃ','Ẁ','Ŵ','Ẅ','Ẇ','Ẉ','W̊'],
+		"X":['Ẍ','Ẍ','Ẋ','Ẋ','ᶍ'],
+		"Y":['Ý','Ŷ','Ÿ','Ƴ','Ȳ','Ɏ','ʎ'],
+		"Z":['Ź','Ż','Ž','Ƶ','Ȥ','Ɀ','ʐ','ʑ']
+	};
+	function replaceAt(s, n, t) {
+		return s.substring(0, n) + t + s.substring(n + 1);
+	}
+	function editText() {
+		let text = document.getElementById('output').value;
+		let list = Object.keys(letters);
+		let letter, curletter, output;
+		for (var i = 0; i <= text.length; i++) {
+			if (output == undefined) {output = ""}
+			letter = text[i];
+			try {if (!list.includes(letter.toUpperCase())) {
+				if (letter == undefined) {letter = ""}
+				output += letter;
+				continue;
+			}}
+			catch {
+				if (letter == undefined) {letter = ""}
+				output += letter;
+				continue;
+			}
+			upcase = letter == letter.toUpperCase()
+			curletter = letters[letter.toUpperCase()].random();
+			if (curletter == 'speciali') {
+				if (upcase == true) {curletter = "İ"}
+				else if (upcase == false) {curletter = "ı"}
+			}
+			else if (upcase) {curletter = curletter.toUpperCase()}
+			else {curletter = curletter.toLowerCase()}
+			output += curletter;
+		}
+		document.getElementById('output').value = output;
+	}
+	var upcase;
+</script>
+</html>
