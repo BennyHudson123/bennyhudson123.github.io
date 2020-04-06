@@ -67,6 +67,7 @@
 		}
 		function keyPress(e) {
 			var correct = getKeyByValue(words, wordcolor).toLowerCase().substr(0, 1);
+			if (words.deR = "#ff0000") {correct = getKeyByValue(words, wordcolor).toLowerCase().substr(getKeyByValue(words, wordcolor).length-1, 1);}
 			if (e.key == correct && document.getElementById("goandstop").innerHTML == "Type!") {
 				document.getElementById("goandstop").innerHTML = "Start";
 				let time = ((Date.now() - starttime) / Math.pow(10, 3)).toFixed(3);
