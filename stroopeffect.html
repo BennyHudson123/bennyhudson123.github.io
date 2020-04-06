@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Stroop Effect</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		.words, .colors{
+			display: inline;
+			margin-right: 10px;
+		}
+		#list{
+			display: inline;
+			margin-right: 10px;
+			float: left;
+		}
+		#goandstop{
+			font-size: 50px;
+			font-family: times_new_roman;
+			margin-left: 50px;
+		}
+		#finalword{
+			width: 100px;
+			height: 100px;
+			margin-left: 500px;
+			font-size: 100px;
+		}
+		#preset{
+			border: solid black 1px;
+			height: 200px;
+			width: 200px;
+			position: fixed;
+			left: 250px;
+			top: 200px;
+			padding: 10px;
+		}
+		.presets{
+			display: block;
+			margin-bottom: 10px;
+		}
+
+	</style>
+	<script type="text/javascript">
+		Array.prototype.random = function () {
+			return this[Math.floor((Math.random()*this.length))];
+		}
+		let starttime;
+		let wordcolor;
+		let words = {};
+		function getKeyByValue(object, value) {
+			return Object.keys(object).find(key => object[key] === value);
+		}
+		function generateWord() {
+			if (document.getElementById("goandstop").innerHTML == "Start") {
+				starttime = Date.now();
+				document.getElementById("goandstop").innerHTML = "Type!"
+				for (var i = 0; i < document.getElementById('list').children[0].children.length/4; i++) {
+					words[document.getElementById('list').children[0].children[i*4].value] = document.getElementById('list').children[0].children[(i*4)+1].value;
+				}
+				let wordwords = Object.keys(words);
+				let wordcolors = Object.values(words);
+				let wordword = wordwords.random();
+				wordcolors.splice(wordwords.indexOf(wordword), 1)
+				wordcolor = wordcolors.random();
+				document.getElementById('finalword').innerHTML = wordword;
+				document.getElementById('finalword').style.color = wordcolor;
+			}
+		}
+		function keyPress(e) {
+			var correct = getKeyByValue(words, wordcolor).toLowerCase().substr(0, 1);
+			if (e.key == correct && document.getElementById("goandstop").innerHTML == "Type!") {
+				document.getElementById("goandstop").innerHTML = "Start";
+				let time = ((Date.now() - starttime) / Math.pow(10, 3)).toFixed(3);
+				document.getElementById('time').innerHTML = "It took you " + time + " seconds to read the word.";
+			}
+		}
+		function preset(prename) {
+			if (prename == "default") {document.getElementById('list').children[0].innerHTML = '<input type="text" class="words" value="Red"><input type="color" class="colors" value="#ff0000"><br><br><input type="text" class="words" value="Orange"><input type="color" class="colors" value="#ffa500"><br><br><input type="text" class="words" value="Yellow"><input type="color" class="colors" value="#ffff00"><br><br><input type="text" class="words" value="Green"><input type="color" class="colors" value="#008000"><br><br><input type="text" class="words" value="Blue"><input type="color" class="colors" value="#0000ff"><br><br><input type="text" class="words" value="Purple"><input type="color" class="colors" value="#800080"><br><br><input type="text" class="words" value="Pink"><input type="color" class="colors" value="#ffc0cb"><br><br><input type="text" class="words" value="Brown"><input type="color" class="colors" value="#a52a2a"><br><br><input type="text" class="words" value="Black"><input type="color" class="colors" value="#000000"><br><br><input type="text" class="words" value="Gray"><input type="color" class="colors" value="#808080"><br><br>'}
+			else if (prename == "backwards") {document.getElementById('list').children[0].innerHTML = '<input type="text" class="words" value="deR"><input type="color" class="colors" value="#ff0000"><br><br><input type="text" class="words" value="egnarO"><input type="color" class="colors" value="#ffa500"><br><br><input type="text" class="words" value="wolleY"><input type="color" class="colors" value="#ffff00"><br><br><input type="text" class="words" value="neerG"><input type="color" class="colors" value="#008000"><br><br><input type="text" class="words" value="eulB"><input type="color" class="colors" value="#0000ff"><br><br><input type="text" class="words" value="elpruP"><input type="color" class="colors" value="#800080"><br><br><input type="text" class="words" value="kniP"><input type="color" class="colors" value="#ffc0cb"><br><br><input type="text" class="words" value="nworB"><input type="color" class="colors" value="#a52a2a"><br><br><input type="text" class="words" value="kcalB"><input type="color" class="colors" value="#000000"><br><br><input type="text" class="words" value="yarG"><input type="color" class="colors" value="#808080"><br><br>'}
+		}
+		function changeListSize(num) {
+			if (num == 1) {
+				//<input type="text" class="words" value="New Color"><input type="color" class="colors" value="#000000"><br><br>
+				var addword = document.createElement("input");
+				addword.type = "text";
+				addword.classList.add('words');
+				addword.value = "New Color";
+				document.getElementById('list').children[0].appendChild(addword);
+				var addcolor = document.createElement("input");
+				addcolor.type = "color";
+				addcolor.classList.add('colors');
+				document.getElementById('list').children[0].appendChild(addcolor);
+				var breaktag = document.createElement("br");
+				document.getElementById('list').children[0].appendChild(breaktag);
+				var breaktag = document.createElement("br");
+				document.getElementById('list').children[0].appendChild(breaktag);
+			}
+			else if (num == -1 && document.getElementById('list').children[0].children.length > 8) {
+				var list = document.getElementById('list').children[0];
+				list.removeChild(list.children[list.children.length - 1]);
+				var list = document.getElementById('list').children[0];
+				list.removeChild(list.children[list.children.length - 1]);
+				var list = document.getElementById('list').children[0];
+				list.removeChild(list.children[list.children.length - 1]);
+				var list = document.getElementById('list').children[0];
+				list.removeChild(list.children[list.children.length - 1]);
+			}
+		}
+	</script>
+</head>
+<body>
+<h1>The Stroop Effect (not currently finished)</h1>
+<div id="list">
+	<div>
+	<!--<input type="text" class="words" value="Red">
+		<input type="color" class="colors" value="#ff0000"><br><br>
+		<input type="text" class="words" value="Orange">
+		<input type="color" class="colors" value="#ffa500"><br><br>
+		<input type="text" class="words" value="Yellow">
+		<input type="color" class="colors" value="#ffff00"><br><br>
+		<input type="text" class="words" value="Green">
+		<input type="color" class="colors" value="#008000"><br><br>
+		<input type="text" class="words" value="Blue">
+		<input type="color" class="colors" value="#0000ff"><br><br>
+		<input type="text" class="words" value="Purple">
+		<input type="color" class="colors" value="#800080"><br><br>
+		<input type="text" class="words" value="Pink">
+		<input type="color" class="colors" value="#ffc0cb"><br><br>
+		<input type="text" class="words" value="Brown">
+		<input type="color" class="colors" value="#a52a2a"><br><br>
+		<input type="text" class="words" value="Black">
+		<input type="color" class="colors" value="#000000"><br><br>
+		<input type="text" class="words" value="Gray">
+		<input type="color" class="colors" value="#808080"><br><br> -->
+	</div>
+	<button onclick="changeListSize(1)">+</button>
+	<button onclick="changeListSize(-1)">-</button>
+</div>
+<button id="goandstop" onclick="generateWord();" onkeydown="keyPress(event)">Start</button><br>
+<div id="preset">
+	<button class="presets" onclick="preset('default')">Default</button>
+	<button class="presets" onclick="preset('backwards')">Backwards Words</button>
+	<h4 id="time"></h4>
+</div>
+<p id="finalword"></p>
+</body>
+<script type="text/javascript">preset('default')</script>
+</html>
