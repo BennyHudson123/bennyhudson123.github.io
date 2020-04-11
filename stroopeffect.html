@@ -4,6 +4,9 @@
 	<title>Stroop Effect</title>
 	<meta charset="utf-8">
 	<style type="text/css">
+		html{
+			background: lightgray;
+		}
 		fieldset{
 			border: none;
 			margin: none;
@@ -18,6 +21,7 @@
 		.shortcuts{
 			width: 10px;
 			text-align: center;
+			border: red solid 1px;
 		}
 		#list{
 			display: inline;
@@ -56,7 +60,12 @@
 		#timelink{
 			display: none;
 		}
-
+		#instruct{
+			position: absolute;
+			left: 300px;
+			top:0;
+			display: none;
+		}
 	</style>
 	<script type="text/javascript">
 		Array.prototype.random = function () {
@@ -73,6 +82,7 @@
 			if (document.getElementById("goandstop").innerHTML == "Start") {
 				document.getElementById('timelink').style.display = "none";
 				document.getElementById("disable").disabled = "disabled";
+				document.getElementById("instruct").style.display = "initial";
 				starttime = Date.now();
 				words = {};
 				document.getElementById("goandstop").innerHTML = "Type!"
@@ -93,15 +103,16 @@
 				document.getElementById('finalword').style.color = wordcolor;
 			}
 			if (mobile()) {
-				setTimeout(function () {let asnwer = prompt("Type the Keyboard shortcut of the color!"); keyPress(asnwer)}, 1)
+				document.getElementById('instruct').innerHTML = "Tap on the shortcuts (outlined in red) of the <u> color </u> of the word!";
 			}
 		}
 		function keyPress(e) {
+			if (!mobile()) {e = e.key}
 			if (document.getElementById("goandstop").innerHTML == "Type!") {
 				document.getElementById('wordsleft').value--;
-				if (e.key == correct && document.getElementById("goandstop").innerHTML == "Type!") {
+				if (e == correct && document.getElementById("goandstop").innerHTML == "Type!") {
 					let time = ((Date.now() - starttime) / Math.pow(10, 3)).toFixed(3);
-					document.getElementById('time').innerHTML = "It took you " + time + " seconds to read the word.";
+					document.getElementById('time').innerHTML = "Your response time was " + time + " seconds.";
 					timelist.push(time);
 				}
 				else {
@@ -128,11 +139,13 @@
 
 					if (timelist.length == 1) {averagetime = timelist[0]}
 					if (averagetime == "Infinity" || averagetime == "NaN" || averagetime == "Fail") {document.getElementById('time').innerHTML = "You got every single word wrong. Were you trying to fail on purpose?"}
-					else {document.getElementById('time').innerHTML = "The average time it took you to read a word is " + averagetime + " seconds. You got " + correctanswers + " word(s) correct and " + wronganswers + " words(s) incorrect."}
+					else {document.getElementById('time').innerHTML = "Your average response time is " + averagetime + " seconds. You got " + correctanswers + " word(s) correct and " + wronganswers + " words(s) incorrect."}
+					if (mobile()) {document.getElementById('time').innerHTML += "<br> Note: your response time might not be entirely accurate because you're using a mobile device. Try to get a computer to use this program for more accurate results."}
 					document.getElementById('timelink').style.display = "initial"
 					document.getElementById('finalword').innerHTML = "";
-					document.getElementById('wordsleft').value = 40;
+					document.getElementById('wordsleft').value = 30;
 					document.getElementById("disable").disabled = "";
+					document.getElementById("instruct").style.display = "none";
 				}
 				else {generateWord();}
 				}
@@ -150,27 +163,39 @@
 			return check;
 		}
 		function preset(prename) {
-			if (prename == "f") {document.getElementById('list').children[0].innerHTML = '<input type="color" class="colors" value="#ff0000"><input type="text" class="words" value="Red"><input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="r"><br><br><input type="color" class="colors" value="#ffa500"><input type="text" class="words" value="Orange"><input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="o"><br><br><input type="color" class="colors" value="#ffff00"><input type="text" class="words" value="Yellow"><input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="y"><br><br><input type="color" class="colors" value="#008000"><input type="text" class="words" value="Green"><input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="g"><br><br><input type="color" class="colors" value="#0000ff"><input type="text" class="words" value="Blue"><input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="b"><br><br><input type="color" class="colors" value="#800080"><input type="text" class="words" value="Purple"><input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="p"><br><br>'}
-			else if (prename == "b") {document.getElementById('list').children[0].innerHTML = '<input type="color" class="colors" value="#ff0000"><input type="text" class="words" value="deR"><input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="r"><br><br><input type="color" class="colors" value="#ffa500"><input type="text" class="words" value="egnarO"><input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="o"><br><br><input type="color" class="colors" value="#ffff00"><input type="text" class="words" value="wolleY"><input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="y"><br><br><input type="color" class="colors" value="#008000"><input type="text" class="words" value="neerG"><input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="g"><br><br><input type="color" class="colors" value="#0000ff"><input type="text" class="words" value="eulB"><input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="b"><br><br><input type="color" class="colors" value="#800080"><input type="text" class="words" value="elpruP"><input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="p"><br><br>'}
+			if (prename == "f") {document.getElementById('list').children[0].innerHTML = '<input type="color" class="colors" value="#ff0000"><input type="text" class="words" value="Red"><input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="r"><br><br><input type="color" class="colors" value="#ffa500"><input type="text" class="words" value="Orange"><input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="o"><br><br><input type="color" class="colors" value="#ffff00"><input type="text" class="words" value="Yellow"><input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="y"><br><br><input type="color" class="colors" value="#008000"><input type="text" class="words" value="Green"><input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="g"><br><br><input type="color" class="colors" value="#0000ff"><input type="text" class="words" value="Blue"><input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="b"><br><br><input type="color" class="colors" value="#800080"><input type="text" class="words" value="Purple"><input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="p"><br><br>'}
+			else if (prename == "b") {document.getElementById('list').children[0].innerHTML = '<input type="color" class="colors" value="#ff0000"><input type="text" class="words" value="deR"><input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="r"><br><br><input type="color" class="colors" value="#ffa500"><input type="text" class="words" value="egnarO"><input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="o"><br><br><input type="color" class="colors" value="#ffff00"><input type="text" class="words" value="wolleY"><input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="y"><br><br><input type="color" class="colors" value="#008000"><input type="text" class="words" value="neerG"><input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="g"><br><br><input type="color" class="colors" value="#0000ff"><input type="text" class="words" value="eulB"><input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="b"><br><br><input type="color" class="colors" value="#800080"><input type="text" class="words" value="elpruP"><input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="p"><br><br>'}
 		}
 		function changeListSize(num) {
 			if (num == 1) {
-				//<input type="text" class="words" value="New Color"><input type="color" class="colors" value="#000000"><br><br>
+				//<input type="color" class="colors" value="#ff0000">
+				//<input type="text" class="words" value="Red">
+				//<input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="r"><br><br>
+				var addcolor = document.createElement("input");
+				addcolor.type = "color";
+				addcolor.classList.add('colors');
+				document.getElementById('list').children[0].appendChild(addcolor);
 				var addword = document.createElement("input");
 				addword.type = "text";
 				addword.classList.add('words');
 				addword.value = "New Color";
 				document.getElementById('list').children[0].appendChild(addword);
-				var addcolor = document.createElement("input");
-				addcolor.type = "color";
-				addcolor.classList.add('colors');
-				document.getElementById('list').children[0].appendChild(addcolor);
+				var addshort = document.createElement("input")
+				addshort.type = "text";
+				addshort.classList.add('shortcuts');
+				addshort.title = "Keyboard shortcut";
+				addshort.addEventListener("touchstart", function(){keyPress(this.value)});
+				addshort.maxLength = 1;
+				addshort.value = "x";
+				document.getElementById('list').children[0].appendChild(addshort);
 				var breaktag = document.createElement("br");
 				document.getElementById('list').children[0].appendChild(breaktag);
 				var breaktag = document.createElement("br");
 				document.getElementById('list').children[0].appendChild(breaktag);
 			}
 			else if (num == -1 && document.getElementById('list').children[0].children.length > 8) {
+				var list = document.getElementById('list').children[0];
+				list.removeChild(list.children[list.children.length - 1]);
 				var list = document.getElementById('list').children[0];
 				list.removeChild(list.children[list.children.length - 1]);
 				var list = document.getElementById('list').children[0];
@@ -191,27 +216,27 @@
 	<div>
 		<!-- <input type="color" class="colors" value="#ff0000">
 		<input type="text" class="words" value="Red">
-		<input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="r"><br><br>
+		<input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="r"><br><br>
 		<input type="color" class="colors" value="#ffa500">
 		<input type="text" class="words" value="Orange">
-		<input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="o"><br><br>
+		<input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="o"><br><br>
 		<input type="color" class="colors" value="#ffff00">
 		<input type="text" class="words" value="Yellow">
-		<input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="y"><br><br>
+		<input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="y"><br><br>
 		<input type="color" class="colors" value="#008000">
 		<input type="text" class="words" value="Green">
-		<input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="g"><br><br>
+		<input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="g"><br><br>
 		<input type="color" class="colors" value="#0000ff">
 		<input type="text" class="words" value="Blue">
-		<input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="b"><br><br>
+		<input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="b"><br><br>
 		<input type="color" class="colors" value="#800080">
 		<input type="text" class="words" value="Purple">
-		<input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="p"><br><br>
+		<input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="p"><br><br>
 		<input type="text" class="words" value="Gray">
-		<input type="text" class="shortcuts" title="Keyboard shortcut" maxlength="1" value="g"><br><br> -->
+		<input type="text" class="shortcuts" title="Keyboard shortcut" ontouchstart="keyPress(this.value)" maxlength="1" value="g"><br><br> -->
 	</div>
-	<button onclick="changeListSize(1)">+</button>
-	<button onclick="changeListSize(-1)">-</button>
+	<input type="button" value="+" onclick="changeListSize(1)">
+	<input type="button" value="-" onclick="changeListSize(-1)">
 </div>
 </form>
 <div id="preset">
@@ -219,13 +244,14 @@
 	<label class="checkbox"><input class="checkbox" type="checkbox" id="congru">Congruent?</label><br><br>
 	<input type="button" value="Forward" class="presets" onclick="preset('f')">
 	<input type="button" value="Backward" class="presets" onclick="preset('b')">
-	<input max="100" min="1" type="number" id="wordsleft" value="40" title="Words you have left to type">
+	<input max="100" min="1" type="number" id="wordsleft" value="30" title="Trials">
 	<h4 id="time"></h4>
 	<a id="timelink" href="#" onclick="showTimelist();">Show full list of times</a>
 </div>
 <p id="finalword"></p>
 </fieldset>
 </form>
+<h1 id="instruct">Type the keyboard shortcut (outlined in red) of the <u>color</u> of the word!</h1>
 <script type="text/javascript">preset('f')</script>
 </body>
 </html>
