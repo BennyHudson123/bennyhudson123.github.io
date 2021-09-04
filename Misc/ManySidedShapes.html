@@ -4,111 +4,144 @@
 		<link rel="icon" type="image/png" href="../favicon-32x32.png" sizes="32x32" />
 		<link rel="icon" type="image/png" href="../favicon-16x16.png" sizes="16x16" />
 	<title>Many Sided Polygon Name Generator</title>
-	<script type="text/javascript">function calculate() {
-	pre = ""
-	//this is a failsafe
-	error = "Please use a whole number.";
-	//the rest is code
+	<script type="text/javascript">
+function calculate() {
+	aan = "a";
+	pre = "";
 	ans = "The code is not working correctly.";
+
 	end = undefined
 	p = document.getElementById("p1");
 	num = document.getElementById("sides").value;
-	if (Number.isInteger(Number(num)) && num !== "" && num >= 0) {}
+	if (Number.isInteger(Number(num)) && num !== "" && num > 0) {}
 	else {
-		p.innerHTML = error;
+		p.innerHTML = "Please use a natural number.";
 		return;
-	};		
-	if (num >= 1000) {num1k = Number(num.toString().substring(2))}
-	else {num1k = num}
-	if (num >= 100 && num < 1000) {
-		num100 = Number(num.toString().substring(1));
+	};
+	//special cases
+	if (num == 1000000) {ans = "A shape with 1,000,000 sides is called a megagon."; p.innerHTML = ans; return;}
+	if (num > 1000000) {
+		ans = "Please use a number less than 1,000,000.";
+		p.innerHTML = ans;
+		return;
 	}
-	else if (num >= 1000 && num < 10000) {num100 = Number(num.toString().substring(2))}
-	else {num100 = num}
-	if (num == 10000) {ans = "You call a 10000 sided shape a/an myriagon."; p.innerHTML = ans; return;}
-	if (num > 10000 && num < 1000000) {ans = "You have entered the name of an unnamed shape. Try 10000 or 1000000 instead."; p.innerHTML = ans; return;}
-	if (num == 1000000) {ans = "You call a 1000000 sided shape a/an megagon."; p.innerHTML = ans; return;}
-	if (num > 1000000) {ans = "You have entered in the name of an unnamed shape. There aren't any other polygons with more sides, but an apeirogon has infinite sides."; p.innerHTML = ans; return;}
-	//1-9
-	if (num100 == 0 || num1k == 0) {ans = "You cannot have a 0 sided shape."; pre = "";}
-	if (num100 == 1 || num1k == 1) {ans = "You cannot have a 1 sided shape, but if you could it would be called a monogon."; pre = "hen";}
-	if (num100 == 2 || num1k == 2) {ans = "You cannot have a 2 sided shape, but if you could it would be called a digon."; pre = "di";}
-	if (num100 == 3 || num1k == 3) {end = "trigon"; pre = "tri";}
-	if (num100 == 4 || num1k == 4) {end = "tetragon"; pre = "tetra";}
-	if (num100 == 5 || num1k == 5) {end = "pentagon"; pre = "penta";}
-	if (num100 == 6 || num1k == 6) {end = "hexagon"; pre = "hexa";}
-	if (num100 == 7 || num1k == 7) {end = "heptagon"; pre = "hepta";}
-	if (num100 == 8 || num1k == 8) {end = "octagon"; pre = "octa";}
-	if (num100 == 9 || num1k == 9) {end = "enneagon"; pre = "ennea";}	
-	//10-19
-	if (num100 == 10) {end = "decagon"; pre = "deca";}
-	if (num100 == 11) {end = "hendecagon"; pre = "hendeca";}
-	if (num100 == 12) {end = "dodecagon"; pre = "dodeca";}
-	if (num100 == 13) {end = "trisdecagon"; pre = "trisdeca";}
-	if (num100 == 14) {end = "tetradecagon"; pre = "tetradeca";}
-	if (num100 == 15) {end = "pentadecagon"; pre = "pentadeca";}
-	if (num100 == 16) {end = "hexadecagon"; pre = "hexadeca";}
-	if (num100 == 17) {end = "heptadecagon"; pre = "heptadeca";}
-	if (num100 == 18) {end = "octadecagon"; pre = "octadeca";}
-	if (num100 == 19) {end = "enneadecagon"; pre = "enneadeca";}
+	//1-19
+	if (num == 0) {ans = "Please use a natural number.";}
+	if (num == 1) {ans = "A shape with 1 side is called a monogon (or a henagon, but it doesn't make much sense anyway).";}
+	if (num == 2) {ans = "A shape with 2 sides is called a digon (or a bigon, but it doesn't make much sense anyway).";}
+	if (num == 3) {ans = "A shape with 3 sides is called a triangle (or a trigon, if you really want to).";}
+	if (num == 4) {ans = "A shape with 4 sides is called a quadrilateral (or a tetragon).";}
+	if (num == 5) {end = "pentagon";}
+	if (num == 6) {end = "hexagon";}
+	if (num == 7) {ans = "A shape with 7 sides is called a heptagon (or a septagon).";}
+	if (num == 8) {end = "octagon";}
+	if (num == 9) {ans = "A shape with 9 sides is called a nonagon (or an enneagon).";}
+	if (num == 10) {end = "decagon";}
+	if (num == 11) {ans = "A shape with 11 sides is called a undecagon (or a hendecagon).";}
+	if (num == 12) {end = "dodecagon";}
+	if (num == 13) {end = "tridecagon";}
+	if (num == 14) {end = "tetradecagon";}
+	if (num == 15) {end = "pentadecagon";}
+	if (num == 16) {end = "hexadecagon";}
+	if (num == 17) {end = "heptadecagon";}
+	if (num == 18) {end = "octadecagon";}
+	if (num == 19) {end = "enneadecagon";}
 	//20-99
 	if (num > 19) {
-		suff = ""
-		suf = ""
-		the10s = Math.floor(num100 / 10);
-		if (the10s == 2) {suf = "icosa"}
-		if (the10s == 3) {suf = "triaconta"}
-		if (the10s == 4) {suf = "tetraconta"}
-		if (the10s == 5) {suf = "pentaconta"}
-		if (the10s == 6) {suf = "hexaconta"}
-		if (the10s == 7) {suf = "heptaconta"}
-		if (the10s == 8) {suf = "octaconta"}
-		if (the10s == 9) {suf = "enneaconta"}
-		if (num % 10 != 0 && num100 >= 20) {
-			var last = num.toString().split('').pop();
-			if (last == "1") {pre = "hena"}
-			if (last == "2") {pre = "di"}
-			if (last == "3") {pre = "tri"}
-			if (last == "4") {pre = "tetra"}
-			if (last == "5") {pre = "penta"}
-			if (last == "6") {pre = "hexa"}
-			if (last == "7") {pre = "hepta"}
-			if (last == "8") {pre = "octa"}
-			if (last == "9") {pre = "ennea"}
+		the1s = num % 10;
+		if (the1s == 1) {pre = "hena"}
+		if (the1s == 2) {pre = "di"}
+		if (the1s == 3) {pre = "tri"}
+		if (the1s == 4) {pre = "tetra"}
+		if (the1s == 5) {pre = "penta"}
+		if (the1s == 6) {pre = "hexa"}
+		if (the1s == 7) {pre = "hepta"}
+		if (the1s == 8) {pre = "octa"}
+		if (the1s == 9) {pre = "ennea"}
+		the10s = Math.floor((num / 10) % 10);
+		if (the1s != 0 && the10s >= 2) {pre = "kai" + pre}
+		if (the10s == 1) {
+			if (the1s == 1) {pre = "hendeca"}
+			if (the1s == 2) {pre = "dodeca"}
+			if (the1s == 3) {pre = "trideca"}
+			if (the1s == 4) {pre = "tetradeca"}
+			if (the1s == 5) {pre = "pentadeca"}
+			if (the1s == 6) {pre = "hexadeca"}
+			if (the1s == 7) {pre = "heptadeca"}
+			if (the1s == 8) {pre = "octadeca"}
+			if (the1s == 9) {pre = "enneadeca"}
 		}
-		if (num % 10 != 0) {pre = "kai" + pre}
-		if (num.slice(-3) >= 100) {
-			the100s = Math.floor(num.slice(-3) / 100);
-			if (the100s == 1) {suff = "hecto"}
-			if (the100s == 2) {suff = "dihecta"}
-			if (the100s == 3) {suff = "trihecta"}
-			if (the100s == 4) {suff = "tetrahecta"}
-			if (the100s == 5) {suff = "pentahecta"}
-			if (the100s == 6) {suff = "hexahecta"}
-			if (the100s == 7) {suff = "heptahecta"}
-			if (the100s == 8) {suff = "octahecta"}
-			if (the100s == 9) {suff = "enneahecta"}
+		if (the10s == 2 && the1s == 0) {pre = "icosa" + pre}
+		if (the10s == 2 && the1s != 0) {pre = "icosi" + pre}
+		if (the10s == 3) {pre = "triaconta" + pre}
+		if (the10s == 4) {pre = "tetraconta" + pre}
+		if (the10s == 5) {pre = "pentaconta" + pre}
+		if (the10s == 6) {pre = "hexaconta" + pre}
+		if (the10s == 7) {pre = "heptaconta" + pre}
+		if (the10s == 8) {pre = "octaconta" + pre}
+		if (the10s == 9) {pre = "enneaconta" + pre}
+		if (num >= 100) {
+			the100s = Math.floor((num / 100) % 10);
+			if (the100s == 1) {pre = "hecto" + pre}
+			if (the100s == 2) {pre = "dihecta" + pre}
+			if (the100s == 3) {pre = "trihecta" + pre}
+			if (the100s == 4) {pre = "tetrahecta" + pre}
+			if (the100s == 5) {pre = "pentahecta" + pre}
+			if (the100s == 6) {pre = "hexahecta" + pre}
+			if (the100s == 7) {pre = "heptahecta" + pre}
+			if (the100s == 8) {pre = "octahecta" + pre}
+			if (the100s == 9) {pre = "enneahecta" + pre}
 		}
 		if (num >= 1000) {
-			the1ks = Math.floor(num / 1000);
-			if (the1ks == 1) {fuf = "chillia"}
-			if (the1ks == 2) {fuf = "dischillia"}
-			if (the1ks == 3) {fuf = "trischillia"}
-			if (the1ks == 4) {fuf = "tetrakischillia"}
-			if (the1ks == 5) {fuf = "pentakischillia"}
-			if (the1ks == 6) {fuf = "hexakischillia"}
-			if (the1ks == 7) {fuf = "heptakischillia"}
-			if (the1ks == 8) {fuf = "octakischillia"}
-			if (the1ks == 9) {fuf = "enneakischillia"}
+			the1ks = Math.floor((num / 1000) % 10);
+			if (the1ks == 1) {pre = "chillia" + pre}
+			if (the1ks == 2) {pre = "dischillia" + pre}
+			if (the1ks == 3) {pre = "trischillia" + pre}
+			if (the1ks == 4) {pre = "tetrakischillia" + pre}
+			if (the1ks == 5) {pre = "pentakischillia" + pre}
+			if (the1ks == 6) {pre = "hexakischillia" + pre}
+			if (the1ks == 7) {pre = "heptakischillia" + pre}
+			if (the1ks == 8) {pre = "octakischillia" + pre}
+			if (the1ks == 9) {pre = "enneakischillia" + pre}
 		}
-		if (num <= 99) {end = suf + pre + "gon"}
-		if (num100 < 20 && num >= 100) {end = suff + pre + "gon"}
-		if (num >= 120 && num < 1000) {end = suff + suf + pre + "gon"}
-		if (num1k >= 0 && num >= 1000 ) {end = fuf + suff + suf + pre + "gon"}
+		if (num >= 10000) {
+			the10ks = Math.floor((num / 10000) % 10);
+			if (the10ks == 1) {pre = "myria" + pre}
+			if (the10ks == 2) {pre = "dismyria" + pre}
+			if (the10ks == 3) {pre = "trismyria" + pre}
+			if (the10ks == 4) {pre = "tetrakismyria" + pre}
+			if (the10ks == 5) {pre = "pentakismyria" + pre}
+			if (the10ks == 6) {pre = "hexakismyria" + pre}
+			if (the10ks == 7) {pre = "heptakismyria" + pre}
+			if (the10ks == 8) {pre = "octakismyria" + pre}
+			if (the10ks == 9) {pre = "enneakismyria" + pre}
+		}
+		if (num >= 100000) {
+			the100ks = Math.floor((num / 100000) % 10);
+			if (the100ks == 1) {pre = "deca" + pre}
+			if (the100ks == 2 && the10ks == 0) {pre = "icosa" + pre}
+			if (the100ks == 2 && the10ks != 0) {pre = "icosi" + pre}
+			if (the100ks == 3) {pre = "triaconta" + pre}
+			if (the100ks == 4) {pre = "tetraconta" + pre}
+			if (the100ks == 5) {pre = "pentaconta" + pre}
+			if (the100ks == 6) {pre = "hexaconta" + pre}
+			if (the100ks == 7) {pre = "heptaconta" + pre}
+			if (the100ks == 8) {pre = "octaconta" + pre}
+			if (the100ks == 9) {pre = "enneaconta" + pre}
+			if (the10ks == 0) {pre = pre + "kismyria"}
+		}
+		end = pre + "gon"
 	}
-	if (end != undefined || num >= 100) {ans = "You call a " + num + " sided shape a/an " + end + "."}
+	//check if to use an or a
+	if (end != undefined) {
+		let1 = end.charAt(0);
+		if (let1 == "a" || let1 == "e" || let1 == "i" || let1 == "o" || let1 == "u") {aan = "an"}
+	}
+
+	if (end != undefined || num >= 100) {ans = "A shape with " + Number(num).toLocaleString() + " sides is called "+ aan + " " + end + "."}
 	end = undefined;
-	p.innerHTML = ans;}</script>
+	p.innerHTML = ans;
+}</script>
 	<style type="text/css">
 		body{
 			background-color: #111;
@@ -121,7 +154,7 @@
 			font-weight: normal;
 		}
 		h1{
-			font-size: 100px;
+			font-size: 75px;
 		}
 		h2{
 			font-size: 75px;
@@ -150,8 +183,11 @@
 <center id="center">
 <h1>Many Sided Polygon Name Generator</h1>
 <h2>Type in how many sides your shape has!</h2>
-<p><input id="sides" type="number" value="3" max="" min="0"> sides</p>
-<input class="inputs" type="submit" onclick="calculate();">
+<p><input id="sides" type="number" value="3" max="1000000" min="1" oninput="
+var x = document.getElementById('sides');
+if (x.value > 1000000) x.value = 1000000;
+"> sides</p>
+<input id="inputs" type="submit" onclick="calculate();">
 <p id="p1">Enter a number and press submit!</p>
 </center>
 </body>
