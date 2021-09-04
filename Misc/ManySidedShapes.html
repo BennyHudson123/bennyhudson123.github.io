@@ -21,7 +21,7 @@ function calculate() {
 	//special cases
 	if (num == 1000000) {ans = "A shape with 1,000,000 sides is called a megagon."; p.innerHTML = ans; return;}
 	if (num > 1000000) {
-		ans = "Please use a number less than 1,000,000.";
+		ans = "Please use a number that isn't over 1,000,000.";
 		p.innerHTML = ans;
 		return;
 	}
@@ -183,10 +183,7 @@ function calculate() {
 <center id="center">
 <h1>Many Sided Polygon Name Generator</h1>
 <h2>Type in how many sides your shape has!</h2>
-<p><input id="sides" type="number" value="3" max="1000000" min="1" oninput="
-var x = document.getElementById('sides');
-if (x.value > 1000000) x.value = 1000000;
-"> sides</p>
+<p><input id="sides" type="number" value="3" max="1000000" min="1"> sides</p>
 <input id="inputs" type="submit" onclick="calculate();">
 <p id="p1">Enter a number and press submit!</p>
 </center>
