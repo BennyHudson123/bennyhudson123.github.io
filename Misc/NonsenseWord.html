@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nonsense Word Generator</title>
+	<style type="text/css">
+		body{
+				background-color: #111;
+		}
+		*{
+			font-family: 'Open Sans', sans-serif;
+			color: white;
+			font-size: 25px;
+		}
+		p{color: white;}
+		input{color:black}
+	</style>
+	<script type="text/javascript">
+		Array.prototype.random = function () {
+			return this[Math.floor(Math.random() * this.length)]
+		}
+		function buttonClick() {
+			let outputp = document.getElementById("outputp");
+			outputp.innerText = generateWord();
+		}
+		function generateWord() {
+			let silentE = "";
+			function transliterate(letter, position) {
+				let returner;
+				switch (letter) {
+					case "θ":
+					returner = "th";
+					break;
+
+					case "ð":
+					returner = "th";
+					break;
+
+					case "ʃ":
+					returner = "sh";
+					break;
+
+					// case "ʒ":
+					// if (Math.random() < 0.2) {returner = "zh"}
+					// else if (Math.random() < 0.3) {returner = "g"}
+					// else if (Math.random() < 0.4) {returner = "s"}
+					// else {returner = "j"}
+					// break;
+
+					case "t̠ʃ":
+					if (position == 0 && Math.random < 0.5) {returner = "tch"}
+					else {returner = "ch"}
+					break;
+
+					case "d̠ʒ":
+					if (Math.random() < 0.15) {returner = "dg"}
+					if (Math.random() < 0.3) {returner = "g"}
+					else {returner = "j"}
+					break;
+
+					case "j":
+					if (Math.random() < 0.1) {returner = "j"}
+					else {returner = "y";}
+					break;
+
+					case "ɹ":
+					returner = "r";
+					break;
+
+					case "i":
+					if (Math.random < 0.3) {returner = "ee"}
+					else if (Math.random < 0.2) {returner = "ea"}
+					else if (Math.random < 0.2) {returner = "ie"}
+					else if (Math.random < 0.05) {returner = "i"}
+					else {
+						returner = "e";
+						silentE = "e";
+					}
+					break;
+
+					case "ɪ":
+					returner = "i";
+					break;
+
+					case "aɪ":
+					if (Math.random < 0.3) {
+						returner = "ie"
+						if (position == 0) {returner = "y"}
+					}
+					else {
+						returner = "i";
+						silentE = "e";
+					}
+					break;
+
+					case "ɛ":
+					returner = "e";
+					break;
+
+					case "æ":
+					if (Math.random < 0.1) {returner = "ai"}
+					else {returner = "a"}
+					break;
+
+					case "ɑ":
+					returner = "a";
+					break;
+
+					case "eɪ":
+					if (Math.random < 0.5) {
+						returner = "ai";
+						if (position == 0) {returner = "ay"}
+					}
+					else {
+						returner = "a";
+						silentE = "e";
+					}
+					break;
+
+					case "u":
+					if (position == 0 && Math.random < 0.25) {returner = "ew"}
+					else if (Math.random < 0.2) {returner = "ou"}
+					else if (Math.random < 0.2) {returner = "ui"}
+					else {returner = "oo"}
+					break;
+
+					case "ʊ":
+					returner = "oo";
+					break;
+
+					case "ʌ":
+					returner = "u";
+					break;
+
+					case "ɔ":
+					returner = "o"
+					break;
+
+					case "ə":
+					if (Math.random < 0.1) {returner = "a"}
+					if (Math.random < 0.15) {returner = "i"}
+					if (Math.random < 0.2) {returner = "e"}
+					if (Math.random < 0.3) {returner = "u"}
+					else {returner = "o"}
+					break;
+					case "oʊ":
+					if (position != 0) {
+						if (Math.random < 0.25) {returner = "oa"}
+						else if (Math.random < 0.25) {returner = "oe"}
+						else {
+							returner = "o";
+							silentE = "e";
+						}
+					}
+					else if (position == 0 && Math.random < 0.75) {returner = "ow"}
+					else {returner = "o"}
+					break;
+
+					case "aʊ":
+					returner = "au";
+					break;
+
+					case "oɪ":
+					returner = "oi";
+					break;
+
+					case "ju":
+					returner = "u";
+					silentE = "e";
+					break;
+
+					case "f":
+					if (Math.random < 0.05) {returner = "gh"}
+					if (Math.random() < 0.2) {returner = "ph"}
+					else {returner = "f"}
+					break;
+
+					case "s":
+					if (Math.random < 0.4) {returner = "c"}
+					else {returner = "s"}
+					break;
+
+					case "k":
+					if (Math.random < 0.4) {returner = "c"}
+					else {returner = "k"}
+					break;
+
+					default:
+					returner = letter;
+				}
+				return returner;
+			}
+			let consonants = ["p", "b", "f", "v", "θ", "ð", "t", "d", "s", "z", "ʃ", "t̠ʃ", "d̠ʒ", "k", "g", "m", "n", "w", "j", "h", "l", "ɹ"];
+			let startBlends = ["bl", "br", "cl", "cr", "dr", "fl", "fr", "gl", "gr", "pl", "pr", "sc", "sk", "sl", "sm", "sn", "sp"];
+			let endBlends = ["sp", "ck", "ft", "lf", "lk", "lp", "mp",  "lt", "nd", "nk", "nt", "sk", "pt", "st", "ɚ", "ŋ"];
+			let vowels = ["i", "ɪ", "ɛ", "æ", "u", "ʌ", "ɔ", "ɑ", "eɪ", "oʊ", "aɪ", "ju"];
+			let weirdVowels = ["ʊ", "ə", "aʊ", "oɪ"];
+			let kcVowels = ["æ", "ɑ", "eɪ", "ɔ", "oʊ", "u", "ʊ", "ʌ"];
+			let scVowels = ["ɛ", "i", "ɪ"];
+			let wordLength = Math.floor(Math.random() * 6) + 3;
+			let word = "";
+			let pronunciation = "";
+			let conFirst = Math.round(Math.random());
+			let curcon, curvow;
+			for (var i = wordLength - 1; i >= 0; i--) {
+				if ((i + conFirst) % 2 == 0) {
+					curcon = consonants.random();
+					word = word + transliterate(curcon, i);
+					pronunciation = pronunciation + curcon;
+				}
+				else {
+					if (i == 0) {silentE = ""}
+					if (word.slice(word.length - 1) == "c") {
+						if (pronunciation.slice(pronunciation.length - 1) == "k") {
+							curvow = kcVowels.random();
+						}
+						if (pronunciation.slice(pronunciation.length - 1) == "s") {
+							curvow = scVowels.random();
+						}
+					}
+					else if (Math.random() < 0.1) {
+						curvow = weirdVowels.random();
+					}
+					else {
+						curvow = vowels.random();
+					}
+					word = word + transliterate(curvow, i);
+					pronunciation = pronunciation + curvow;
+				}
+			}
+			return word + silentE + "\n" + "Pronunciation: " + "/"  + pronunciation + "/";
+		}
+	</script>
+</head>
+<body onload="buttonClick();">
+<a href="../index.html" style="cursor: pointer;"><img style="position: absolute; top: 10px; right: 10px; height: 50px; width: 50px;" src="../home.svg"></a>
+<input onclick="buttonClick();" type="button" value="Generate a New Word!">
+<p id="outputp" style="font-size:30px;"></p>
+<p>Here's a fun site you can use to pronounce this! <a target="_blank" href="http://ipa-reader.xyz/">ipa-reader.xyz</a> (not mine)</p>
+</body>
+</html>
