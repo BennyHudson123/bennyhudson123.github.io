@@ -3,23 +3,49 @@
 <head>
 		<link rel="icon" type="image/png" href="../favicon-32x32.png" sizes="32x32" />
 		<link rel="icon" type="image/png" href="../favicon-16x16.png" sizes="16x16" />
-	<title>Many Sided Polygon Name Generator</title>
+	<title>Many Sided Polygon Generator</title>
 	<script type="text/javascript">
 function calculate() {
+	num = document.getElementById("sides").value;
+
+	//canvas stuff
+	canvas = document.getElementById("canvas");
+	ctx = canvas.getContext("2d");
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.beginPath();
+	siz = 50
+	cent = 75
+
+	if (num > 1000000) {drawnum = 0}
+	else if (num >= 100) {drawnum = 100}
+	else {drawnum = num}
+
+	//if (drawnum % 2 == 0) {ctx.translate(75,75); ctx.rotate(2 * Math.PI / (drawnum * 2)); ctx.translate(-75,-75);}
+	ctx.moveTo(cent, cent - siz)
+	for (var i = 1; i <= drawnum; i++) {
+		ctx.lineTo(cent - siz * Math.sin(i * 2 * Math.PI / drawnum), cent - siz * Math.cos(i * 2 * Math.PI / drawnum))
+	}
+	//if (drawnum % 2 == 0) {ctx.translate(75,75); ctx.rotate(-2 * Math.PI / (drawnum * 2)); ctx.translate(-75,-75);}
+	ctx.fillStyle = "#FFFFFF";
+	ctx.closePath();
+	ctx.fill();
+	ctx.strokeStyle = "#FFFFFF";
+	ctx.stroke();
+
+	//this code sucks it was like the second thing I coded
 	aan = "a";
 	pre = "";
 	ans = "The code is not working correctly.";
 
 	end = undefined
 	p = document.getElementById("p1");
-	num = document.getElementById("sides").value;
 	if (Number.isInteger(Number(num)) && num !== "" && num > 0) {}
 	else {
 		p.innerHTML = "Please use a natural number.";
 		return;
 	};
 	//special cases
-	if (num == 1000000) {ans = "A shape with 1,000,000 sides is called a megagon."; p.innerHTML = ans; return;}
+	if (num == 1000000) {ans = "A polygon with 1,000,000 sides is called a megagon."; p.innerHTML = ans; return;}
 	if (num > 1000000) {
 		ans = "Please use a number that isn't over 1,000,000.";
 		p.innerHTML = ans;
@@ -27,17 +53,17 @@ function calculate() {
 	}
 	//1-19
 	if (num == 0) {ans = "Please use a natural number.";}
-	if (num == 1) {ans = "A shape with 1 side is called a monogon (or a henagon, but it doesn't make much sense anyway).";}
-	if (num == 2) {ans = "A shape with 2 sides is called a digon (or a bigon, but it doesn't make much sense anyway).";}
-	if (num == 3) {ans = "A shape with 3 sides is called a triangle (or a trigon, if you really want to).";}
-	if (num == 4) {ans = "A shape with 4 sides is called a quadrilateral (or a tetragon).";}
+	if (num == 1) {ans = "A polygon with 1 side is called a monogon (or a henagon, but it doesn't make much sense anyway).";}
+	if (num == 2) {ans = "A polygon with 2 sides is called a digon (or a bigon, but it doesn't make much sense anyway).";}
+	if (num == 3) {ans = "A polygon with 3 sides is called a triangle (or a trigon, if you really want to).";}
+	if (num == 4) {ans = "A polygon with 4 sides is called a quadrilateral (or a tetragon).";}
 	if (num == 5) {end = "pentagon";}
 	if (num == 6) {end = "hexagon";}
-	if (num == 7) {ans = "A shape with 7 sides is called a heptagon (or a septagon).";}
+	if (num == 7) {ans = "A polygon with 7 sides is called a heptagon (or a septagon).";}
 	if (num == 8) {end = "octagon";}
-	if (num == 9) {ans = "A shape with 9 sides is called a nonagon (or an enneagon).";}
+	if (num == 9) {ans = "A polygon with 9 sides is called a nonagon (or an enneagon).";}
 	if (num == 10) {end = "decagon";}
-	if (num == 11) {ans = "A shape with 11 sides is called a undecagon (or a hendecagon).";}
+	if (num == 11) {ans = "A polygon with 11 sides is called a undecagon (or a hendecagon).";}
 	if (num == 12) {end = "dodecagon";}
 	if (num == 13) {end = "tridecagon";}
 	if (num == 14) {end = "tetradecagon";}
@@ -138,7 +164,7 @@ function calculate() {
 		if (let1 == "a" || let1 == "e" || let1 == "i" || let1 == "o" || let1 == "u") {aan = "an"}
 	}
 
-	if (end != undefined || num >= 100) {ans = "A shape with " + Number(num).toLocaleString() + " sides is called "+ aan + " " + end + "."}
+	if (end != undefined || num >= 100) {ans = "A polygon with " + Number(num).toLocaleString() + " sides is called "+ aan + " " + end + "."}
 	end = undefined;
 	p.innerHTML = ans;
 }</script>
@@ -165,9 +191,11 @@ function calculate() {
 		input{
 			font-size: 37.5px;
 			color: black;
+			width: 150px;
+			text-align: center;
 		}
 		p, span{
-			font-size: 37.5px;
+			font-size: 30px;
 		}
 		.color{
 			font-size: 75px;
@@ -176,16 +204,19 @@ function calculate() {
 		#p1{
 			text-align: center;
 		}
+		canvas{
+			border: white 1px solid;
+		}
 	</style>
 </head>
 <body>
 <a href="../index.html" style="cursor: pointer;"><img style="position: absolute; top: 10px; right: 10px; height: 50px; width: 50px;" src="../home.svg"></a>
 <center id="center">
-<h1>Many Sided Polygon Name Generator</h1>
+<h1>Many Sided Polygon Generator</h1>
 <h2>Type in how many sides your shape has!</h2>
-<p><input id="sides" type="number" value="3" max="1000000" min="1"> sides</p>
-<input id="inputs" type="submit" onclick="calculate();">
-<p id="p1">Enter a number and press submit!</p>
+<p><input id="sides" maxlength="7" type="number" value="" max="1000000" min="1" oninput="calculate();"> sides</p>
+<canvas width="150" height="150" id="canvas"></canvas>
+<p id="p1">Enter a number!</p>
 </center>
 </body>
 </html>
