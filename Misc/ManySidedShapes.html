@@ -3,6 +3,7 @@
 <head>
 		<link rel="icon" type="image/png" href="../favicon-32x32.png" sizes="32x32" />
 		<link rel="icon" type="image/png" href="../favicon-16x16.png" sizes="16x16" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Many Sided Polygon Generator</title>
 	<script type="text/javascript">
 function calculate() {
@@ -41,7 +42,8 @@ function calculate() {
 	p = document.getElementById("p1");
 	if (Number.isInteger(Number(num)) && num !== "" && num > 0) {}
 	else {
-		p.innerHTML = "Please use a natural number.";
+		if (num == "") {p.innerHTML = ""}
+		else {p.innerHTML = "Please use a natural number."}
 		return;
 	};
 	//special cases
@@ -183,7 +185,7 @@ function calculate() {
 			font-size: 75px;
 		}
 		h2{
-			font-size: 75px;
+			font-size: 37.5px;
 		}
 		h3{
 			font-size: 75px;
@@ -203,6 +205,8 @@ function calculate() {
 		}
 		#p1{
 			text-align: center;
+			width: 75%;
+			word-wrap: break-word
 		}
 		canvas{
 			border: white 1px solid;
@@ -214,9 +218,9 @@ function calculate() {
 <center id="center">
 <h1>Many Sided Polygon Generator</h1>
 <h2>Type in how many sides your shape has!</h2>
-<p><input id="sides" maxlength="7" type="number" value="" max="1000000" min="1" oninput="calculate();"> sides</p>
+<p><input id="sides" maxlength="7" type="tel" value="" max="1000000" min="1" oninput="calculate();"> sides</p>
 <canvas width="150" height="150" id="canvas"></canvas>
-<p id="p1">Enter a number!</p>
+<p id="p1"></p>
 </center>
 </body>
 </html>

@@ -5,12 +5,10 @@
 		<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Ben Pitt Stoller Projects</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<style type="text/css">
 			h1, h2, h3{
 				font-weight: normal;
+				text-align: center;
 			}
 			body{
 				background-color: #111;
@@ -20,34 +18,43 @@
 				color: white;
 			}
 			a{
+				color: ;
 				font-size: 35px;
 				cursor: pointer;
 				border: solid white 3px;
 				padding: 10px;
+				appearance: button;
+			}
+			iframe{
+				width: 100%;
 			}
 		</style>
 	</head>
 	<body>
 		<br>
 		<br>
-		<center>
-			<h1>Hi, I'm Ben Pitt Stoller.</h1>
-			<h2>I like to make things, so here's some of those.</h2>
-		</center>
-		<div style="padding: 20px; display: flex; text-align: center;">
+		<h1>Hi, I'm Ben Pitt Stoller.</h1>
+		<h2>I like to make things, so here's some of those.</h2>
+		<div style="padding: 20px; display: flex; flex-wrap: wrap; text-align: center;">
 			<div style="flex: 50%;">
 				<h1>Games</h1>
+				<div class="frames">
 				<iframe frameborder="0" src="https://itch.io/embed/960306?bg_color=222222&amp;fg_color=eeeeee&amp;link_color=00AEF0&amp;border_color=363636" width="552" height="167"><a href="https://benpittstoller.itch.io/triangle-game">Triangle Game by Ben Pitt Stoller</a></iframe>
+				</div>
 				<br>
+				<div class="frames">
 				<iframe frameborder="0" src="https://itch.io/embed/1078873?bg_color=222222&amp;fg_color=eeeeee&amp;link_color=a2af77&amp;border_color=363636" width="552" height="167"><a href="https://benpittstoller.itch.io/concatenate">Concatenate! by Ben Pitt Stoller</a></iframe>
+				</div>
 				<br>
+				<div class="frames">
 				<iframe frameborder="0" src="https://itch.io/embed/821212?dark=true" width="552" height="167"><a href="https://benpittstoller.itch.io/project-electron">Project Electron by Ben Pitt Stoller</a></iframe>
 				<br><br>
-				<a style="font-size: 50px;" href="Games/CircleManeuver.html">Circle Maneuver</a>
+				</div>
+				<a href="Games/CircleManeuver.html">Circle Maneuver</a>
 				<br><br>
-				<a style="font-size: 25px;" href="Games/CMLevelEditor.html">Level Editor</a>
+				<a style="font-size: 20px;" href="Games/CMLevelEditor.html">Level Editor</a>
 			</div>
-			<div style="flex: 50%; text-align: center;">
+			<div style="flex: 50%;">
 				<h1>Digital Toys</h1>
 				<a href="Misc/NonsenseWord.html">Nonsense Word Generator</a>
 				<br><br>

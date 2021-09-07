@@ -2,7 +2,7 @@
 <head>
     <link rel="icon" type="image/png" href="../favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="../favicon-16x16.png" sizes="16x16" />
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width initial-scale=1">
     <script>
      function createWord() {
      if (document.getElementById("p").innerHTML == "Calculating...") {return;}
@@ -85,7 +85,6 @@ height: 299;
 }
 img{
   cursor: pointer;
-  border: black 5px solid;
 }
     </style>
     <title>The Ultimate Magic 8 Ball</title>
@@ -98,7 +97,7 @@ img{
 <br>
 <div class="container" id="ball">
 <img onclick="createWord()" src="1c8tfl.jpg">
-<p id="p" class="center">Magic 8 Ball</p>
+<p id="p" onclick="createWord()" class="center">Magic 8 Ball</p>
 </div>
 </body>
 </html>
