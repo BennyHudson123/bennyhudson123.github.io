@@ -67,7 +67,7 @@
 					returner = "r";
 					break;
 
-					case "i":
+					case "iː":
 					if (Math.random < 0.3) {returner = "ee"}
 					else if (Math.random < 0.2) {returner = "ea"}
 					else if (Math.random < 0.2) {returner = "ie"}
@@ -83,9 +83,9 @@
 					break;
 
 					case "aɪ":
-					if (Math.random < 0.3) {
-						returner = "ie"
-						if (position == 0) {returner = "y"}
+					if (position == 0) {
+						if (Math.random < 0.4) {returner = "y"}
+						else {returner = "ie"}
 					}
 					else {
 						returner = "i";
@@ -102,8 +102,9 @@
 					else {returner = "a"}
 					break;
 
-					case "ɑ":
-					returner = "a";
+					case "ɑː":
+					if (Math.random < 0.2) {returner = "ah"}
+					else {returner = "a"}
 					break;
 
 					case "eɪ":
@@ -117,32 +118,36 @@
 					}
 					break;
 
-					case "u":
+					case "uː":
 					if (position == 0 && Math.random < 0.25) {returner = "ew"}
-					else if (Math.random < 0.2) {returner = "ou"}
+					else if (Math.random < 0.2) {returner = "ue"}
 					else if (Math.random < 0.2) {returner = "ui"}
+					else if (Math.random < 0.2) {returner = "u"}
+					else if (Math.random < 0.2) {returner = "ou"}
 					else {returner = "oo"}
 					break;
 
 					case "ʊ":
-					returner = "oo";
+					if (Math.random < 0.4) {returner = "u"}
+					else {returner = "oo"}
 					break;
 
 					case "ʌ":
 					returner = "u";
 					break;
 
-					case "ɔ":
+					case "o":
 					returner = "o"
 					break;
 
 					case "ə":
-					if (Math.random < 0.1) {returner = "a"}
-					if (Math.random < 0.15) {returner = "i"}
-					if (Math.random < 0.2) {returner = "e"}
-					if (Math.random < 0.3) {returner = "u"}
-					else {returner = "o"}
+					if (Math.random < 0.2) {returner = "a"}
+					else if (Math.random < 0.2) {returner = "e"}
+					else if (Math.random < 0.2) {returner = "u"}
+					else if (Math.random < 0.2) {returner = "o"}
+					else {returner = "i"}
 					break;
+
 					case "oʊ":
 					if (position != 0) {
 						if (Math.random < 0.25) {returner = "oa"}
@@ -181,8 +186,28 @@
 					break;
 
 					case "k":
+					if (Math.random < 0.05) {returner = "q"}
 					if (Math.random < 0.4) {returner = "c"}
 					else {returner = "k"}
+					break;
+
+					case "z":
+					if (position == wordLength - 1) {
+						if (Math.random < 0.4) {returner = "z"}
+						else {returner = "x"}
+					}
+					else {
+						if (Math.random < 0.25) {returner = "z"}
+						else {returner = "s"}
+					}
+					break;
+
+					case "ks":
+					returner = "x"
+					break;
+					
+					case "kw":
+					returner = "qu"
 					break;
 
 					default:
@@ -190,12 +215,12 @@
 				}
 				return returner;
 			}
-			let consonants = ["p", "b", "f", "v", "θ", "ð", "t", "d", "s", "z", "ʃ", "t̠ʃ", "d̠ʒ", "k", "g", "m", "n", "w", "j", "h", "l", "r"];
+			let consonants = ["p", "b", "f", "v", "θ", "ð", "t", "d", "s", "z", "ʃ", "t̠ʃ", "d̠ʒ", "k", "g", "m", "n", "w", "j", "h", "l", "r", "ks", "kw"];
 			let startBlends = ["bl", "br", "cl", "cr", "dr", "fl", "fr", "gl", "gr", "pl", "pr", "sc", "sk", "sl", "sm", "sn", "sp"];
 			let endBlends = ["sp", "ck", "ft", "lf", "lk", "lp", "mp",  "lt", "nd", "nk", "nt", "sk", "pt", "st", "ɚ", "ŋ"];
-			let vowels = ["i", "ɪ", "ɛ", "æ", "u", "ʌ", "ɔ", "ɑ", "eɪ", "oʊ", "aɪ", "juː"];
+			let vowels = ["iː", "ɪ", "ɛ", "æ", "uː", "ʌ", "o", "ɑː", "eɪ", "oʊ", "aɪ", "juː"];
 			let weirdVowels = ["ʊ", "ə", "aʊ", "oɪ"];
-			let kcVowels = ["æ", "ɑ", "eɪ", "ɔ", "oʊ", "u", "ʊ", "ʌ"];
+			let kcVowels = ["æ", "ɑ", "eɪ", "o", "oʊ", "u", "ʊ", "ʌ"];
 			let scVowels = ["ɛ", "i", "ɪ"];
 			let wordLength = Math.floor(Math.random() * 6) + 3;
 			let word = "";
@@ -228,6 +253,7 @@
 					pronunciation = pronunciation + curvow;
 				}
 			}
+			if (Math.random < 0.35) {silentE = ""}
 			return word + silentE + "\n" + "Pronunciation: " + "/"  + pronunciation + "/";
 		}
 	</script>
