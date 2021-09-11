@@ -24,9 +24,19 @@
 				border: solid white 3px;
 				padding: 5px;
 				display: inline-block;
+				width: 90%;
+				word-wrap: break-word;
 			}
 			iframe{
-				width: 100%;
+				width: 90%;
+			}
+			.header{
+				font-size: 50px;
+				background: white content-box;
+				max-width: 90%;
+				color: black;
+				margin-left: auto;
+				margin-right: auto;
 			}
 		</style>
 	</head>
@@ -37,7 +47,7 @@
 		<h2>I like to make things, so here's some of those.</h2>
 		<div style="padding: 20px; display: flex; flex-wrap: wrap; text-align: center;">
 			<div style="flex: 50%;">
-				<h1>Games</h1>
+				<h1 class="header">Games</h1>
 				<div class="frames">
 				<iframe frameborder="0" src="https://itch.io/embed/960306?bg_color=222222&amp;fg_color=eeeeee&amp;link_color=00AEF0&amp;border_color=363636" width="552" height="167"><a href="https://benpittstoller.itch.io/triangle-game">Triangle Game by Ben Pitt Stoller</a></iframe>
 				</div>
@@ -55,7 +65,7 @@
 				<a style="font-size: 20px;" href="Games/CMLevelEditor.html">Level Editor</a>
 			</div>
 			<div style="flex: 50%;">
-				<h1>Digital Toys</h1>
+				<h1 class="header">Digital Toys</h1>
 				<a href="Misc/NonsenseWord.html">Nonsense Word Generator</a>
 				<br><br>
 				<a href="https://benpittstoller.itch.io/dont-touch-my-x">Don't Touch My X!</a>
