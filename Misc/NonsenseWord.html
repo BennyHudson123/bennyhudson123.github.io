@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width initial-scale=1">
+    <link rel="icon" type="image/png" href="../favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="../favicon-16x16.png" sizes="16x16" />
 	<title>Nonsense Word Generator</title>
 	<style type="text/css">
 		body{
@@ -218,7 +220,7 @@
 			let consonants = ["p", "b", "f", "v", "θ", "ð", "t", "d", "s", "z", "ʃ", "t̠ʃ", "d̠ʒ", "k", "g", "m", "n", "w", "j", "h", "l", "r", "ks", "kw"];
 			let startBlends = ["bl", "br", "cl", "cr", "dr", "fl", "fr", "gl", "gr", "pl", "pr", "sc", "sk", "sl", "sm", "sn", "sp"];
 			let endBlends = ["sp", "ck", "ft", "lf", "lk", "lp", "mp",  "lt", "nd", "nk", "nt", "sk", "pt", "st", "ɚ", "ŋ"];
-			let vowels = ["iː", "ɪ", "ɛ", "æ", "uː", "ʌ", "o", "ɑː", "eɪ", "oʊ", "aɪ", "juː"];
+			let vowels = ["i", "ɪ", "ɛ", "æ", "u", "ʌ", "o", "ɑ", "eɪ", "oʊ", "aɪ", "ju"];
 			let weirdVowels = ["ʊ", "ə", "aʊ", "oɪ"];
 			let kcVowels = ["æ", "ɑ", "eɪ", "o", "oʊ", "u", "ʊ", "ʌ"];
 			let scVowels = ["ɛ", "i", "ɪ"];
@@ -259,7 +261,7 @@
 	</script>
 </head>
 <body onload="buttonClick();">
-<a href="../index.html" style="cursor: pointer;"><img style="position: absolute; top: 10px; right: 10px; height: 50px; width: 50px;" src="../home.svg"></a>
+<a href="../index.html" style="cursor: pointer;"><img style="position: absolute; right: 0; height: 50px; width: 50px; background: #111;" src="../home.svg"></a>
 <input onclick="buttonClick();" type="button" value="Generate a New Word!">
 <p id="outputp" style="font-size:30px;"></p>
 <p>Here's a fun site you can use to pronounce this! <a target="_blank" href="http://ipa-reader.xyz/">ipa-reader.xyz</a> (not mine)</p>

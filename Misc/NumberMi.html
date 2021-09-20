@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width initial-scale=1">
+	<link rel="icon" type="image/png" href="../favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="../favicon-16x16.png" sizes="16x16" />
+	<title>Number Mi</title>
+	<script type="text/javascript">
+function calculate(num, box) {
+	num = num.toUpperCase();
+	//dozenal X -> A and E -> B
+	num = num.replaceAll("X", "A");
+	num = num.replaceAll("E", "B");
+
+	var base;
+
+	switch (box) {
+		case "dec":
+			base = 10;
+			break;
+		case "doz":
+			base = 12;
+			break;
+		case "sex":
+			base = 6;
+			break;
+		case "bin":
+			base = 2;
+			break;
+		case "hex":
+			base = 16;
+			break;
+	}
+
+	//num to base 10
+	num = parseInt(num, base);
+
+	num = num.toString().replace(/\D/g,'');
+
+	//synching boxes
+	document.getElementById("dec").value = Number(num).toString(10);
+	document.getElementById("sex").value = Number(num).toString(6);
+	document.getElementById("bin").value = Number(num).toString(2);
+
+	var doznum = Number(num).toString(12)
+	doznum = doznum.replaceAll("a", "X");
+	doznum = doznum.replaceAll("b", "E");
+	document.getElementById("doz").value = doznum;
+
+	document.getElementById("hex").value = Number(num).toString(16).toUpperCase();
+
+	if (num == 1) {
+		document.getElementById("output").innerHTML = "mi";
+		return;
+	}
+	if (num == "" || num < 1) {
+		document.getElementById("output").innerHTML = "Please use a natural number";
+		return;
+	}
+	if (num >= 100000) {
+		document.getElementById("output").innerHTML = "Please use a number under one hundred thousand";
+		return;
+	}
+
+	document.getElementById("output").innerHTML = pFactor(num, "i");
+
+
+	function pFactor(n, mi) {
+		var output = "";
+		for (var i = 2; i <= Math.floor(Math.sqrt(n)); i++) {
+			while (n % i == 0) {
+				output += miIfy(i, mi)
+				n /= i;
+			}
+		}
+		if (n > 1) {
+			output += miIfy(n, mi)
+		}
+		return output;
+	}
+	function miIfy(x, vowel) {
+		x = Number(x);
+		switch (x) {
+			case 2:
+				return "k" + vowel;
+				break;
+
+			case 3:
+				return "y" + vowel;
+				break;
+
+			case 5:
+				return "p" + vowel;
+				break;
+
+			case 7:
+				return "w" + vowel;
+				break;
+
+			case 11:
+				return "b" + vowel;
+				break;
+
+			case 13:
+				return "h" + vowel;
+				break;
+
+			case 17:
+				return "g" + vowel;
+				break;
+
+			case 19:
+				return "n" + vowel;
+				break;
+
+			case 23:
+				return "s" + vowel;
+				break;
+
+			case 29:
+				return "t" + vowel;
+				break;
+
+			case 31:
+				return "f" + vowel;
+				break;
+
+			case 37:
+				return "l" + vowel;
+				break;
+
+			default:
+				return pFactor(nthPrime(x), "") + "m" + vowel;
+				break;
+		}
+	}
+	function nthPrime(n) {
+		var curPrime = 2;
+		for (k = 0; curPrime != n; k++) {
+			curPrime = nextPrime(curPrime);
+		}
+		return k + 1;
+	}
+	function nextPrime(n) {
+		for(i = n + 1; i < n*n; i++) {
+			if(isPrime(i)) {return i}
+		}
+		return 2;
+	}
+	function isPrime(n){
+		//if (n < 2) {return false}
+		for(j = 2; j < n; j++) {
+			if (n % j == 0) {return false}
+		}
+		return true;
+	}
+}
+	</script>
+	<style>
+		body{
+			background-color: #111;
+		}
+		*{
+			font-family: 'Open Sans', sans-serif;
+			color: white;
+		}
+		textarea{
+			background: black;
+			resize: none;
+			font-size: 50px;
+			width: 100%;
+			color: white;
+			background: black;
+			border: white solid 1px;
+		}
+		p, a{
+			font-size: 37.5px;
+			word-wrap: break-word;
+			text-align: center;
+		}
+		a{
+			margin-bottom: 10px;
+		}
+		.boxcontainer{
+			display: flex;
+			flex-wrap: wrap;
+			width: 20%;
+		}
+	</style>
+</head>
+<body>
+<a href="../index.html" style="cursor: pointer;"><img style="position: absolute; right: 0; height: 50px; width: 50px; background: #111;" src="../home.svg"></a>
+<p id="output">&nbsp;</p>
+<br>
+<div style="display:flex;">
+	<div class="boxcontainer">
+		<a target="_blank" href="https://www.google.com/search?q=normal%20human%20being&tbm=isch">Decimal</a>
+		<br><br>
+		<textarea id="dec" value="" maxlength="5" oninput="calculate(this.value, this.id);"></textarea>
+	</div>
+	<div class="boxcontainer">
+		<a target="_blank" href="http://www.dozenal.org/">Dozenal</a>
+		<br><br>
+		<textarea id="doz" value="" maxlength="4" oninput="calculate(this.value, this.id);"></textarea>
+	</div>
+	<div class="boxcontainer">
+		<a target="_blank" href="https://www.seximal.net/">Seximal</a>
+		<br><br>
+		<textarea id="sex" value="" maxlength="6" oninput="calculate(this.value, this.id);"></textarea>
+	</div>
+	<div class="boxcontainer">
+		<a target="_blank" href="https://www.google.com/search?q=nerd&tbm=isch">Binary</a>
+		<br><br>
+		<textarea id="bin" value="" maxlength="16" oninput="calculate(this.value, this.id);"></textarea>
+	</div>
+	<div class="boxcontainer">
+		<a target="_blank" href="https://www.google.com/search?q=super%20nerd&tbm=isch">Hexadecimal</a>
+		<br><br>
+		<textarea id="hex" value="" maxlength="4" oninput="calculate(this.value, this.id);"></textarea>
+	</div>
+</div>
+</body>
+</html>

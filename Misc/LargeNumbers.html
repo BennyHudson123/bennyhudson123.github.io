@@ -142,7 +142,6 @@ function calculate(num) {
 		}
 	}
 	function findIllion(big) {
-		//todo: add tres sex septen novem stuff
 		if (big == -1) {return " "}
 		else if (big == 0) {return "thousand "}
 		else if (big == 1) {return "million "}
@@ -156,14 +155,14 @@ function calculate(num) {
 		else if (big == 9) {return "nonillion "}
 		else if (big == 1000) {return "millinillion "}
 
+		let pre = "";
 		if (big > 9) {
 			big = big.toString().padStart(3, 0)
-			let pre = "";
 			if (big[2] == 1) {pre = "un"}
 			else if (big[2] == 2) {pre = "duo"}
 			else if (big[2] == 3) {
 				pre = "tre"
-				if (big[1] == 0) {if (big[0] > 2 && big[0] < 6) {pre += "s"}}
+				if (big[1] == 0) {if (big[0] == 1 || (big[0] > 2 && big[0] < 6)) {pre += "s"}}
 				else if (big[1] > 1 && big[1] < 6) {pre += "s"}
 			}
 			else if (big[2] == 4) {pre = "quattuor"}
@@ -270,13 +269,17 @@ window.onclick = function(event) {
 		#inp{
 			resize: none;
 			font-size: 37.5px;
-			color: black;
 			font-family: 'Open Sans', sans-serif;
 			width: 75%;
+			color: white;
+			background: black;
+			border: white solid 1px;
 		}
 		input{
-			color: black;
 			font-size: 20px;
+			cursor: pointer;
+			background: black;
+			color: white;
 		}
 		.but{
 			/*display: inline-block;*/
@@ -302,7 +305,7 @@ window.onclick = function(event) {
 	</style>
 </head>
 <body onload="calculate();">
-<a href="../index.html" style="cursor: pointer;"><img style="position: absolute; top: 10px; right: 10px; height: 50px; width: 50px;" src="../home.svg"></a>
+<a href="../index.html" style="cursor: pointer;"><img style="position: absolute; right: 0; height: 50px; width: 50px; background: #111;" src="../home.svg"></a>
 <h1>Large Number Name Generator</h1>
 <h2>Type in a huge number and this'll convert it to into words!</h2>
 <div class="dropdown">
