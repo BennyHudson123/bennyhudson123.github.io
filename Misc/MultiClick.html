@@ -115,18 +115,21 @@ function calculate(value) {
 			padding: 100px;
 			background: rgb(255,85,85);
 			background: radial-gradient(circle, rgba(255,50,50,1) 0%, rgba(255,0,0,1) 100%);
-			box-shadow: 0 10px 0 0px darkred;
+			box-shadow: 0 13px 0 0px darkred;
 			cursor: pointer;
+			user-select: none;
+			-webkit-tap-highlight-color: transparent;
+			margin-top: 2em;
 		}
 		#click:active {
 			background-color: red;
-			box-shadow: none;
-			transform: translateY(4px);
+			box-shadow: 0 2px 0 0px darkred;
+			transform: translateY(11px);
 			cursor: pointer;
 		}
 		#click:disabled {
-			box-shadow: none;
 			background-color: #666;
+			box-shadow: none;
 		}
 		p{
 			font-size: 37.5px;
@@ -137,7 +140,7 @@ function calculate(value) {
 </head>
 <body>
 <a href="../index.html" style="cursor: pointer;"><img style="position: absolute; right: 0; height: 50px; width: 50px; background: #111;" src="../home.svg"></a>
-<center><button id="click" onclick="calculate(clicks + 1);"></button></center>
+<center><button id="click" onclick="calculate(clicks + 1);" tabindex="-1"></button></center>
 <p id="output"></p>
 </body>
 </html>
