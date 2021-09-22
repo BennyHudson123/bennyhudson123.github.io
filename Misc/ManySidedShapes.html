@@ -12,7 +12,7 @@ function calculate() {
 	hdbox = document.getElementById("hd");
 	hdlabel = document.getElementById("hdlabel");
 	if (hdbox.checked && num > 1000000) {hdbox.checked = false; alert("Rendering is not supported past 1,000,000 sides.")}
-	if (num > 1000000) {hdlabel.style.display = "none"}
+	if (num > 1000000 || num <= 10000) {hdlabel.style.display = "none"}
 	else {hdlabel.style.display = "block"}
 	/*canvas stuff
 	canvas = document.getElementById("canvas");
@@ -46,7 +46,7 @@ function calculate() {
 	var circ = document.getElementById("circ");
 	var digon = document.getElementById("digon");
 	var pnts = "";
-	if (num > 100 && !hdbox.checked) {
+	if (num > 10000 && !hdbox.checked) {
 		poly.setAttribute("points", "");
 		circ.style.fill = "white";
 		digon.style.strokeWidth = "0";
@@ -214,9 +214,9 @@ function calculate() {
 		let1 = end.charAt(0);
 		if (let1 == "a" || let1 == "e" || let1 == "i" || let1 == "o" || let1 == "u") {aan = "an"}
 	}
-	if (ans == "The code is not working correctly." || num >= 100) {ans = "A polygon with " + Number(num).toLocaleString() + " sides is called "+ aan + " " + end + "."}
+	if (ans == "The code is not working correctly." || num >= 10000) {ans = "A polygon with " + Number(num).toLocaleString() + " sides is called "+ aan + " " + end + "."}
 	p.textContent = ans;
-	if (num < 3 || (num > 100 && !hdbox.checked)) {document.getElementById("download").style.visibility = "hidden"}
+	if (num < 3 || (num > 10000 && !hdbox.checked)) {document.getElementById("download").style.visibility = "hidden"}
 	else {document.getElementById("download").style.visibility = "visible"}
 }
 function savage() {
@@ -288,6 +288,7 @@ function savage() {
 			margin-right: 1em;
 		}
 		#download{visibility: hidden;}
+		#hdlabel{display: none;}
 	</style>
 </head>
 <body>
@@ -303,7 +304,7 @@ function savage() {
 </svg>
 <p id="p1"></p>
 <div style="">
-	<label id="hdlabel"><input id="hd" type="checkbox" oninput="calculate();">Render polygons with over 100 sides (laggy)</label>
+	<label id="hdlabel"><input id="hd" type="checkbox" oninput="calculate();">Render polygons with over 10,000 sides (laggy)</label>
 	<br><br>
 	<input style="cursor: pointer; background: black; color: white;" type="button" value="Download Polygon" id="download" onclick="savage();">
 </div>
