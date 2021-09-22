@@ -6,10 +6,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Many Sided Polygon Generator</title>
 	<script type="text/javascript">
+		var end;
 function calculate() {
 	num = document.getElementById("sides").value;
-
-	//canvas stuff
+	hdbox = document.getElementById("hd");
+	hdlabel = document.getElementById("hdlabel");
+	if (hdbox.checked && num > 1000000) {hdbox.checked = false; alert("Rendering is not supported past 1,000,000 sides.")}
+	if (num > 1000000) {hdlabel.style.display = "none"}
+	else {hdlabel.style.display = "block"}
+	/*canvas stuff
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -17,9 +22,10 @@ function calculate() {
 	siz = 50
 	cent = 75
 
-	if (num > 1000000) {drawnum = 0}
+	if (num > 10000000) {drawnum = 0}
 	else if (num >= 100) {drawnum = 100}
 	else {drawnum = num}
+	
 
 	//if (drawnum % 2 == 0) {ctx.translate(75,75); ctx.rotate(2 * Math.PI / (drawnum * 2)); ctx.translate(-75,-75);}
 	ctx.moveTo(cent, cent - siz)
@@ -31,7 +37,38 @@ function calculate() {
 	ctx.closePath();
 	ctx.fill();
 	ctx.strokeStyle = "#FFFFFF";
-	ctx.stroke();
+	ctx.stroke();*/
+
+	//svg stuff now
+	siz = 50
+	cent = 75
+	var poly = document.getElementById("poly");
+	var circ = document.getElementById("circ");
+	var digon = document.getElementById("digon");
+	var pnts = "";
+	if (num > 100 && !hdbox.checked) {
+		poly.setAttribute("points", "");
+		circ.style.fill = "white";
+		digon.style.strokeWidth = "0";
+	}
+	else if (num == 2) {
+		poly.setAttribute("points", "");
+		circ.style.fill = "none";
+		digon.style.strokeWidth = "2";
+	}
+	else if (num > 2) {
+		for (var i = 1; i <= num; i++) {
+			pnts += "" + (cent - siz * Math.sin(i * 2 * Math.PI / num)) + "," + (cent - siz * Math.cos(i * 2 * Math.PI / num)) + " ";
+		}
+		poly.setAttribute("points", pnts);
+		circ.style.fill = "none";
+		digon.style.strokeWidth = "0";
+	}
+	else {
+		poly.setAttribute("points", pnts);
+		circ.style.fill = "none";
+		digon.style.strokeWidth = "0";
+	}
 
 	//this code sucks it was like the second thing I coded
 	aan = "a";
@@ -42,30 +79,30 @@ function calculate() {
 	p = document.getElementById("p1");
 	if (Number.isInteger(Number(num)) && num !== "" && num > 0) {}
 	else {
-		if (num == "") {p.innerHTML = ""}
-		else {p.innerHTML = "Please use a natural number."}
+		if (num == "") {p.textContent = ""}
+		else {p.textContent = "Please use a natural number."}
 		return;
 	};
 	//special cases
-	if (num == 1000000) {ans = "A polygon with 1,000,000 sides is called a megagon."; p.innerHTML = ans; return;}
-	if (num > 1000000) {
-		ans = "Please use a number that isn't over 1,000,000.";
-		p.innerHTML = ans;
+	if (num > 10000000) {
+		ans = "Please use a number that isn't over 10,000,000.";
+		p.textContent = ans;
 		return;
 	}
+
 	//1-19
 	if (num == 0) {ans = "Please use a natural number.";}
 	if (num == 1) {ans = "A polygon with 1 side is called a monogon (or a henagon, but it doesn't make much sense anyway).";}
 	if (num == 2) {ans = "A polygon with 2 sides is called a digon (or a bigon, but it doesn't make much sense anyway).";}
-	if (num == 3) {ans = "A polygon with 3 sides is called a triangle (or a trigon, if you really want to).";}
-	if (num == 4) {ans = "A polygon with 4 sides is called a quadrilateral (or a tetragon).";}
+	if (num == 3) {ans = "A polygon with 3 sides is called a triangle (or a trigon, if you really want to)."; end = "triangle";}
+	if (num == 4) {ans = "A polygon with 4 sides is called a quadrilateral (or a tetragon)."; end = "quadrilateral";}
 	if (num == 5) {end = "pentagon";}
 	if (num == 6) {end = "hexagon";}
-	if (num == 7) {ans = "A polygon with 7 sides is called a heptagon (or a septagon).";}
+	if (num == 7) {ans = "A polygon with 7 sides is called a heptagon (or a septagon)."; end = "heptagon";}
 	if (num == 8) {end = "octagon";}
-	if (num == 9) {ans = "A polygon with 9 sides is called an enneagon (or a nonagon).";}
+	if (num == 9) {ans = "A polygon with 9 sides is called an enneagon (or a nonagon)."; end = "enneagon";}
 	if (num == 10) {end = "decagon";}
-	if (num == 11) {ans = "A polygon with 11 sides is called a hendecagon (or an undecagon).";}
+	if (num == 11) {ans = "A polygon with 11 sides is called a hendecagon (or an undecagon)."; end = "hendecagon";}
 	if (num == 12) {end = "dodecagon";}
 	if (num == 13) {end = "tridecagon";}
 	if (num == 14) {end = "tetradecagon";}
@@ -146,6 +183,7 @@ function calculate() {
 		}
 		if (num >= 100000) {
 			the100ks = Math.floor((num / 100000) % 10);
+			if (the10ks == 0 && the100ks != 0) {pre = "kismyria" + pre}
 			if (the100ks == 1) {pre = "deca" + pre}
 			if (the100ks == 2 && the10ks == 0) {pre = "icosa" + pre}
 			if (the100ks == 2 && the10ks != 0) {pre = "icosi" + pre}
@@ -156,20 +194,48 @@ function calculate() {
 			if (the100ks == 7) {pre = "heptaconta" + pre}
 			if (the100ks == 8) {pre = "octaconta" + pre}
 			if (the100ks == 9) {pre = "enneaconta" + pre}
-			if (the10ks == 0) {pre = pre + "kismyria"}
+		if (num >= 1000000) {
+			the1ms = Math.floor((num / 1000000) % 10);
+			if (the1ms == 1) {pre = "mega" + pre}
+			if (the1ms == 2) {pre = "dimega" + pre}
+			if (the1ms == 3) {pre = "trimega" + pre}
+			if (the1ms == 4) {pre = "tetramega" + pre}
+			if (the1ms == 5) {pre = "pentamega" + pre}
+			if (the1ms == 6) {pre = "hexamega" + pre}
+			if (the1ms == 7) {pre = "heptamega" + pre}
+			if (the1ms == 8) {pre = "octamega" + pre}
+			if (the1ms == 9) {pre = "enneamega" + pre}
 		}
-		end = pre + "gon"
+	}
+	end = pre + "gon"
 	}
 	//check if to use an or a
 	if (end != undefined) {
 		let1 = end.charAt(0);
 		if (let1 == "a" || let1 == "e" || let1 == "i" || let1 == "o" || let1 == "u") {aan = "an"}
 	}
-
-	if (end != undefined || num >= 100) {ans = "A polygon with " + Number(num).toLocaleString() + " sides is called "+ aan + " " + end + "."}
-	end = undefined;
-	p.innerHTML = ans;
-}</script>
+	if (ans == "The code is not working correctly." || num >= 100) {ans = "A polygon with " + Number(num).toLocaleString() + " sides is called "+ aan + " " + end + "."}
+	p.textContent = ans;
+	if (num < 3 || (num > 100 && !hdbox.checked)) {document.getElementById("download").style.visibility = "hidden"}
+	else {document.getElementById("download").style.visibility = "visible"}
+}
+function savage() {
+	num = document.getElementById("sides").value;
+	var svg = document.getElementById("svg");
+	var poly = document.getElementById("poly");
+	svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+	var svgData = "<svg width='150' height='150' id='svg' xmlns='http://www.w3.org/2000/svg'>" + poly.outerHTML + "</svg>";
+	var preface = '<?xml version="1.0" standalone="no"?>\r\n';
+	var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+	var svgUrl = URL.createObjectURL(svgBlob);
+	var downloadLink = document.createElement("a");
+	downloadLink.href = svgUrl;
+	downloadLink.download = end + ".svg";
+	document.body.appendChild(downloadLink);
+	downloadLink.click();
+	document.body.removeChild(downloadLink);
+}
+</script>
 	<style type="text/css">
 		body{
 			background-color: #111;
@@ -190,7 +256,7 @@ function calculate() {
 		h3{
 			font-size: 75px;
 		}
-		input{
+		#sides{
 			font-size: 37.5px;
 			color: white;
 			background: black;
@@ -210,9 +276,18 @@ function calculate() {
 			width: 75%;
 			word-wrap: break-word
 		}
-		canvas{
+		svg{
 			border: white 1px solid;
+			background: black;
 		}
+		#poly{fill: white;}
+		#digon{stroke: white; stroke-width: 0;}
+		#circ{fill: none;}
+		#hd{
+			transform: scale(1.5);
+			margin-right: 1em;
+		}
+		#download{visibility: hidden;}
 	</style>
 </head>
 <body>
@@ -221,8 +296,17 @@ function calculate() {
 <h1>Many Sided Polygon Generator</h1>
 <h2>Type in how many sides your shape has!</h2>
 <p><input id="sides" maxlength="7" type="tel" value="" max="1000000" min="1" oninput="calculate();"> sides</p>
-<canvas width="150" height="150" id="canvas"></canvas>
+<svg width="150" height="150" id="svg">
+	<polygon id="poly" />
+	<line id="digon" x1="75" y1="25" x2="75" y2="125" />
+	<circle id="circ" cx="75" cy="75" r="50" />
+</svg>
 <p id="p1"></p>
+<div style="">
+	<label id="hdlabel"><input id="hd" type="checkbox" oninput="calculate();">Render polygons with over 100 sides (laggy)</label>
+	<br><br>
+	<input style="cursor: pointer; background: black; color: white;" type="button" value="Download Polygon" id="download" onclick="savage();">
+</div>
 </center>
 </body>
 </html>
