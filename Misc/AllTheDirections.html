@@ -88,8 +88,8 @@
 
         function getDirection(canvas, e) {
             if (e instanceof TouchEvent) e = e.touches[0];
-            let x = e.clientX - canvas.offsetLeft;
-            let y = e.clientY - canvas.offsetTop;
+            let x = e.pageX - canvas.offsetLeft;
+            let y = e.pageY - canvas.offsetTop;
             return Math.round(Math.atan2(y - (canvas.height / 2), x - (canvas.width / 2)) * 180 / Math.PI) + 90;
         }
         let isMouseDown = false;
